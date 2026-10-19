@@ -3,342 +3,346 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="ฝึก Refer/Consent">
-<meta name="theme-color" content="#2B6555">
+<meta name="theme-color" content="#FFFFFF">
 <style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>ฝึกใบส่งตัวและใบยินยอม</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Sarabun:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sarabun:wght@400;500;600;700&family=Sriracha&display=swap">
 <style>
-/* Layout: a ward desk. Case notes sit on the left, the paper form on the right, each scrolling on its own.
-   Printed form text is black Sarabun (the Thai government document face); everything the student writes is ballpoint blue. */
+/* Layout: A4 sheets laid on a desk. Printed text is black Sarabun (the Thai official-document face),
+   what the student writes is ballpoint blue, and every mark the grader makes is red pen (Sriracha). */
 :root{
-  --ground:#EBEFED; --sheet:#FBFCFB; --sheet-2:#F3F6F4;
-  --ink:#17231E; --ink-2:#4B5B55; --ink-3:#77867F;
-  --rule:#C8D2CD; --rule-2:#DDE4E0;
-  --accent:#2B6555; --accent-ink:#FFFFFF; --accent-soft:#DBEAE3;
-  --pen:#1B4A99;
-  --ok:#2C7549; --ok-soft:#DFF0E5; --warn:#8F5E00; --warn-soft:#F5EAD0; --miss:#A3382E; --miss-soft:#F6E1DE; --info-soft:#E2E9F2;
-  --shadow:0 1px 2px rgba(23,35,30,.06),0 12px 30px -18px rgba(23,35,30,.25);
-  --ui:"IBM Plex Sans Thai",-apple-system,system-ui,"Sarabun",sans-serif;
-  --paper:"Sarabun","IBM Plex Sans Thai",-apple-system,system-ui,sans-serif;
+  --desk:#E1E3E0; --paper:#FFFFFF; --paper-2:#F5F6F4;
+  --ink:#141414; --ink-2:#444443; --ink-3:#7A7A77;
+  --line:#141414; --hair:#D0D1CE; --dots:#8A8A86;
+  --pen:#1C3E99; --red:#B3261E; --red-soft:#FBECEB;
+  --shadow:0 1px 1px rgba(0,0,0,.06),0 12px 30px -16px rgba(0,0,0,.3);
+  --doc:"Sarabun","Thonburi",-apple-system,system-ui,sans-serif;
+  --hand:"Sriracha","Sarabun",cursive;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --lh:2.1rem;
+  --lh:2.2rem;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#111715; --sheet:#19211E; --sheet-2:#151C19;
-  --ink:#E0E7E3; --ink-2:#A7B5AF; --ink-3:#7D8C86;
-  --rule:#34413C; --rule-2:#27312D;
-  --accent:#7FC0AA; --accent-ink:#0E1914; --accent-soft:#1E3530;
-  --pen:#8FB3F4;
-  --ok:#7DC898; --ok-soft:#1A3224; --warn:#E2B45E; --warn-soft:#382C15; --miss:#EE8F84; --miss-soft:#3A201C; --info-soft:#1D2939;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.7);
+  --desk:#101010; --paper:#1C1C1B; --paper-2:#232322;
+  --ink:#EAE8E3; --ink-2:#BAB7B1; --ink-3:#8B8882;
+  --line:#D6D3CC; --hair:#3B3A37; --dots:#75736E;
+  --pen:#9AB8FF; --red:#FF857C; --red-soft:#3B201E;
+  --shadow:0 1px 1px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.85);
   color-scheme:dark}}
 :root[data-theme="dark"]{
-  --ground:#111715; --sheet:#19211E; --sheet-2:#151C19;
-  --ink:#E0E7E3; --ink-2:#A7B5AF; --ink-3:#7D8C86;
-  --rule:#34413C; --rule-2:#27312D;
-  --accent:#7FC0AA; --accent-ink:#0E1914; --accent-soft:#1E3530;
-  --pen:#8FB3F4;
-  --ok:#7DC898; --ok-soft:#1A3224; --warn:#E2B45E; --warn-soft:#382C15; --miss:#EE8F84; --miss-soft:#3A201C; --info-soft:#1D2939;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -18px rgba(0,0,0,.7);
+  --desk:#101010; --paper:#1C1C1B; --paper-2:#232322;
+  --ink:#EAE8E3; --ink-2:#BAB7B1; --ink-3:#8B8882;
+  --line:#D6D3CC; --hair:#3B3A37; --dots:#75736E;
+  --pen:#9AB8FF; --red:#FF857C; --red-soft:#3B201E;
+  --shadow:0 1px 1px rgba(0,0,0,.4),0 12px 30px -16px rgba(0,0,0,.85);
   color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{height:100%}
-body{background:var(--ground);color:var(--ink);font-family:var(--ui);font-size:17px;line-height:1.65;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
-h1,h2,h3{text-wrap:balance;margin:0;line-height:1.3}
+body{background:var(--desk);color:var(--ink);font-family:var(--doc);font-size:18px;line-height:1.7;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.35;font-weight:700}
 p{margin:0}
 button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-
-.app{height:100%;display:flex;flex-direction:column}
-.bar{flex:none;display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--sheet);border-bottom:1px solid var(--rule);position:relative;z-index:5}
-.brand{display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;cursor:pointer;font-weight:600;font-size:1rem}
-.brand-mark{width:30px;height:30px;border-radius:7px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--paper);font-weight:700;font-size:.8rem;letter-spacing:.02em}
-.crumb{color:var(--ink-3);font-size:.95rem}
-.crumb::before{content:"/";margin-right:12px;color:var(--rule)}
-.bar-tools{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.chip{font-family:var(--mono);font-size:.88rem;padding:4px 10px;border-radius:999px;background:var(--sheet-2);border:1px solid var(--rule);color:var(--ink-2);font-variant-numeric:tabular-nums}
-.switch{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;color:var(--ink-2);cursor:pointer;min-height:36px}
-.switch input{appearance:none;width:38px;height:22px;border-radius:999px;background:var(--rule);position:relative;margin:0;cursor:pointer;transition:background .15s}
-.switch input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--sheet);transition:transform .15s}
-.switch input:checked{background:var(--accent)}
-.switch input:checked::after{transform:translateX(16px)}
-main{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);padding:.5em 1.05em;border-radius:10px;min-height:44px;cursor:pointer;font-weight:500;text-decoration:none;white-space:nowrap}
-.btn:hover{border-color:var(--ink-3)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.primary:hover{filter:brightness(1.06)}
-.btn.ghost{background:transparent}
-.btn.sm{min-height:36px;padding:.25em .8em;font-size:.88rem;border-radius:8px}
-.btn.lg{min-height:52px;padding:.6em 1.6em;font-size:1.05rem}
-.btn[data-armed]{border-color:var(--miss);color:var(--miss)}
-.linkbtn{background:none;border:0;padding:0;color:var(--accent);text-decoration:underline;cursor:pointer;font-size:inherit}
-.eyebrow{font-size:.78rem;letter-spacing:.08em;color:var(--ink-3);font-weight:500}
+:focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.hand{font-family:var(--hand);color:var(--red)}
 .muted{color:var(--ink-3);font-size:.92rem}
+.center{text-align:center}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-/* ---------- home ---------- */
-.wrap{max-width:1060px;margin:0 auto;padding-block:36px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:36px}
-.intro{display:flex;flex-direction:column;gap:10px;max-width:46rem}
-.intro h1{font-size:clamp(1.55rem,3.2vw,2.1rem);font-weight:600}
-.intro .lede{color:var(--ink-2);font-size:1.05rem}
-.modules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:28px 22px;padding-top:14px;align-items:start}
-.folder{position:relative;background:var(--sheet);border:1px solid var(--rule);border-radius:0 12px 12px 12px;padding:24px 24px 22px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
-.folder .tab{position:absolute;left:-1px;top:-30px;height:31px;padding:4px 16px 0;background:var(--sheet);border:1px solid var(--rule);border-bottom:0;border-radius:10px 10px 0 0;font-size:.82rem;color:var(--ink-2);font-weight:500}
-.folder h2{font-size:1.35rem;font-weight:600}
-.folder p{color:var(--ink-2)}
-.meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0;padding:12px 0;border-block:1px solid var(--rule-2)}
-.meta div{display:flex;flex-direction:column}
-.meta dt{font-size:.78rem;color:var(--ink-3)}
-.meta dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
-.folder .btn{align-self:flex-start}
-.history h2{font-size:1.1rem;font-weight:600;margin-bottom:10px}
-.hist{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-.hist li{display:grid;grid-template-columns:9.5rem 1fr auto;gap:4px 16px;padding:10px 2px;border-bottom:1px solid var(--rule-2);align-items:baseline}
-.hist time{font-family:var(--mono);font-size:.84rem;color:var(--ink-3)}
-.hist b{font-variant-numeric:tabular-nums}
-@media (max-width:560px){.hist li{grid-template-columns:1fr auto}.hist time{grid-column:1/-1}}
-.foot{color:var(--ink-3);font-size:.88rem}
+/* ---------- app frame ---------- */
+.app{height:100%;display:flex;flex-direction:column}
+.bar{flex:none;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--paper);border-bottom:3px double var(--line);position:relative;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 0;cursor:pointer;font-weight:700;font-size:1.02rem}
+.brand-mark{width:30px;height:30px;border:1.5px solid var(--line);display:grid;place-items:center}
+.crumb{color:var(--ink-2);font-size:.98rem}
+.crumb::before{content:"›";margin-right:12px;color:var(--ink-3)}
+.bar-tools{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:.85rem;padding:3px 10px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;color:var(--ink-2);cursor:pointer;min-height:36px}
+.switch input{appearance:none;-webkit-appearance:none;width:38px;height:22px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper);position:relative;margin:0;cursor:pointer}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:var(--ink-3);transition:transform .15s}
+.switch input:checked{background:var(--ink)}
+.switch input:checked::after{transform:translateX(16px);background:var(--paper)}
+main{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
 
-/* ---------- split (refer) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);padding:.35em 1.1em;border-radius:3px;min-height:44px;cursor:pointer;font-family:var(--doc);font-weight:600;font-size:1rem;white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--paper-2)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{opacity:.9}
+.btn.ghost{border-color:var(--hair)}
+.btn.sm{min-height:36px;font-size:.9rem;padding:.15em .8em}
+.btn.lg{min-height:52px;font-size:1.08rem;padding:.45em 1.6em}
+.btn[data-armed]{border-color:var(--red);color:var(--red)}
+.linkbtn{background:none;border:0;padding:0;color:var(--pen);text-decoration:underline;cursor:pointer;font-size:inherit}
+
+/* ---------- sheets ---------- */
+.deskwrap{padding-block:26px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+.sheet{position:relative;width:100%;max-width:900px;margin:0 auto;background:var(--paper);box-shadow:var(--shadow);padding:clamp(22px,5vw,56px) clamp(18px,5.5vw,64px);display:flex;flex-direction:column;gap:18px}
+.sheet.wide{max-width:1180px}
+.sheet.mini{padding:18px 20px;gap:10px}
+.pageno{text-align:center;color:var(--ink-2);margin-top:-8px}
+.doc-title{font-size:clamp(1.35rem,3vw,1.7rem);text-align:center}
+.doc-h{font-size:1.15rem}
+.stamp{position:absolute;top:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);color:var(--red);border:2.5px solid var(--red);border-radius:4px;padding:0 10px;font-weight:700;letter-spacing:.08em;transform:rotate(-7deg);opacity:.85;font-size:.95rem;pointer-events:none;line-height:1.7}
+.vstamp{display:inline-block;color:var(--red);border:2.5px solid var(--red);border-radius:4px;padding:0 12px;font-weight:700;letter-spacing:.06em;transform:rotate(-4deg);line-height:1.8;align-self:flex-start}
+.vstamp.okay{color:var(--ink);border-color:var(--ink)}
+.para{text-indent:2.5em}
+.note{border:1px dashed var(--line);padding:10px 14px;background:var(--paper)}
+.note b{font-weight:700;margin-right:6px}
+.note.ok b{color:var(--ink)}
+.note.bad b{color:var(--red)}
+
+/* memo header (home) */
+.memo-word{text-align:center;font-size:clamp(1.6rem,4vw,2rem);font-weight:700;letter-spacing:.02em}
+.memo{display:flex;flex-direction:column;gap:6px;margin:0;padding-bottom:12px;border-bottom:1.5px solid var(--line)}
+.memo .r{display:flex;gap:6px 24px;flex-wrap:wrap}
+.memo .r > div{display:flex;gap:10px;align-items:baseline;flex:1 1 16rem;min-width:0}
+.memo dt{font-weight:700;font-size:1.12rem;white-space:nowrap}
+.memo dd{margin:0;flex:1;border-bottom:1px dotted var(--dots);min-width:0}
+
+/* tables */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.doc{width:100%;border-collapse:collapse;font-size:1rem;min-width:520px}
+table.doc th,table.doc td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:middle}
+table.doc th{font-weight:700;background:var(--paper-2);text-align:center}
+table.doc td.c{text-align:center;font-variant-numeric:tabular-nums}
+table.doc .sub{display:block;color:var(--ink-2);font-size:.9rem}
+table.doc .hand{font-size:1.25rem}
+
+/* ---------- refer split ---------- */
 .split{height:100%;display:grid;grid-template-columns:minmax(300px,5fr) minmax(0,7fr)}
 .pane{min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-.case{background:var(--sheet-2);border-right:1px solid var(--rule)}
-.pane-head{position:sticky;top:0;z-index:2;background:var(--sheet-2);display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px 10px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px;border-bottom:1px solid var(--rule-2)}
-.pane-head h2{font-size:1.1rem;font-weight:600}
-.case-body{padding-block:16px 48px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px;display:flex;flex-direction:column;gap:18px;font-size:.98rem}
+.case{background:var(--paper);border-right:1.5px solid var(--line)}
+.pane-head{position:sticky;top:0;z-index:2;background:var(--paper);display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px 10px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:20px;border-bottom:1px solid var(--line)}
+.pane-head h2{font-size:1.08rem}
+.pane-head .lab-tag{font-size:.82rem;color:var(--ink-3);letter-spacing:.06em}
+.case-body{padding-block:16px 48px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:20px;display:flex;flex-direction:column;gap:18px;font-size:1rem}
 .only-narrow{display:none}
 @media (max-width:999px){
   .split{display:flex;flex-direction:column}
-  .case{flex:0 0 auto;max-height:44%;border-right:0;border-bottom:1px solid var(--rule)}
+  .case{flex:0 0 auto;max-height:44%;border-right:0;border-bottom:1.5px solid var(--line)}
   .case.collapsed .case-body{display:none}
   .work{flex:1 1 auto}
   .only-narrow{display:inline-flex}
-  .pane-head{padding-right:max(18px,env(safe-area-inset-right,0px))}
-  .case-body{padding-right:max(18px,env(safe-area-inset-right,0px))}
+  .pane-head,.case-body{padding-right:max(20px,env(safe-area-inset-right,0px))}
 }
-.task{background:var(--accent-soft);border-radius:8px;padding:12px 14px;font-weight:500;color:var(--ink)}
-.case h3{font-size:.8rem;letter-spacing:.07em;color:var(--ink-3);font-weight:600;padding-bottom:6px;border-bottom:1px solid var(--rule-2);margin-bottom:8px}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}
+.task{border:1.5px solid var(--line);padding:10px 14px}
+.task::before{content:"โจทย์  ";font-weight:700}
+.case h3{font-size:1rem;padding-bottom:4px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:0}
 .kv dt{color:var(--ink-3)}
 .kv dd{margin:0}
 .case ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:2px}
 .pi{display:flex;flex-direction:column;gap:6px}
-.pi .when{font-weight:600}
-.pe{display:grid;grid-template-columns:5.2rem 1fr;gap:4px 12px;margin:0}
-.pe dt{font-family:var(--mono);font-size:.85rem;color:var(--accent);padding-top:2px}
+.pi .when{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.pe{display:grid;grid-template-columns:5.4rem 1fr;gap:2px 12px;margin:0}
+.pe dt{font-weight:600}
 .pe dd{margin:0}
-.labgroup{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
-.labgroup > span{font-size:.82rem;font-weight:600;color:var(--ink-2)}
-.labs{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.4rem,1fr));gap:0 14px}
-.lab{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:.86rem;border-bottom:1px dotted var(--rule);padding:3px 0;font-variant-numeric:tabular-nums}
+.labgroup{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.labgroup > span{font-weight:600;font-size:.94rem}
+.labs{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.6rem,1fr));gap:0 16px}
+.lab{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--dots);padding:2px 0;font-variant-numeric:tabular-nums;font-size:.95rem}
 .lab span{color:var(--ink-3)}
+.work{background:var(--desk)}
+.work-inner{max-width:920px;margin:0 auto;padding-block:18px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
 
-.work-inner{max-width:880px;margin:0 auto;padding-block:20px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
-.steps{display:flex;gap:4px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
-.step{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;padding:6px 10px;border-radius:8px;color:var(--ink-3);font-size:.9rem;min-height:40px;cursor:pointer}
-.step .sn{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;font-size:.75rem;font-family:var(--mono)}
-.step[aria-current="step"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+/* steps */
+.steps{display:flex;gap:2px 6px;flex-wrap:wrap;list-style:none;margin:0;padding:0;align-items:center}
+.steps li + li::before{content:"›";color:var(--ink-3);margin-right:6px}
+.step{border:0;background:transparent;padding:6px 4px;color:var(--ink-3);font-size:.98rem;min-height:40px;cursor:pointer}
+.step[aria-current="step"]{color:var(--ink);font-weight:700;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px}
 .step.done{color:var(--ink-2)}
-.step.done .sn{background:var(--ink-3);border-color:var(--ink-3);color:var(--sheet)}
-.step:disabled{cursor:default;opacity:.6}
-.h-sec{font-size:1.3rem;font-weight:600}
+.step:disabled{cursor:default;opacity:.55}
 
-.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
-.choice{text-align:left;background:var(--sheet);border:1.5px solid var(--rule);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;cursor:pointer}
-.choice:hover{border-color:var(--ink-3)}
-.choice .mini-title{font-family:var(--paper);font-weight:700;font-size:1.05rem;line-height:1.4}
-.choice .mini-sub{font-size:.88rem;color:var(--ink-2)}
+/* form choice */
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:16px}
+.choice{position:relative;text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:0;padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;box-shadow:var(--shadow)}
+.choice:hover{background:var(--paper-2)}
+.choice .mini-title{font-weight:700;font-size:1.04rem;line-height:1.45;text-align:center;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.choice .mini-sub{font-size:.92rem;color:var(--ink-2)}
 .choice .code{font-family:var(--mono);font-size:.78rem;color:var(--ink-3)}
-.choice[aria-pressed="true"].right{border-color:var(--ok);background:var(--ok-soft)}
-.choice[aria-pressed="true"].wrong{border-color:var(--miss);background:var(--miss-soft)}
-.note{padding:12px 16px;border-radius:8px;background:var(--info-soft);display:flex;flex-direction:column;gap:6px}
-.note.ok{background:var(--ok-soft)}
-.note.bad{background:var(--miss-soft)}
-.note b{font-weight:600}
+.choice[aria-pressed="true"]::after{position:absolute;top:-14px;right:-8px;font-family:var(--hand);font-size:2.6rem;line-height:1;color:var(--red)}
+.choice.right[aria-pressed="true"]::after{content:"✓"}
+.choice.wrong[aria-pressed="true"]::after{content:"✕"}
 
 /* ---------- paper form ---------- */
-.paper{background:var(--sheet);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:3px;padding:clamp(18px,4vw,44px);font-family:var(--paper);font-size:1.06rem;display:flex;flex-direction:column;gap:16px}
-.paper-title{text-align:center;font-weight:700;font-size:1.22rem;font-family:var(--paper)}
-.paper-sub{text-align:center;color:var(--ink-3);font-size:.85rem;font-family:var(--ui);margin-top:-10px}
-.frow{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:flex-end}
+.frame{border:1.5px solid var(--line);padding:clamp(14px,3.2vw,30px);display:flex;flex-direction:column;gap:14px;font-size:1.04rem}
+.form-title{text-align:center;font-weight:700;font-size:1.22rem}
+.form-sub{text-align:center;color:var(--ink-3);font-size:.86rem;margin-top:-10px}
+.frow{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:flex-end}
 .fl{display:flex;align-items:baseline;gap:8px;min-width:0}
 .frow > .fl{flex:1 1 var(--w,12rem)}
 .fl > span{white-space:nowrap}
-.dot{flex:1;min-width:3ch;width:100%;border:0;border-bottom:1.5px dotted var(--ink-3);background:transparent;color:var(--pen);font:inherit;font-size:1.06rem;padding:2px 4px;border-radius:0;-webkit-appearance:none}
-.dot:focus{outline:none;border-bottom:1.5px solid var(--pen);background:color-mix(in srgb,var(--pen) 7%,transparent)}
-.dot::placeholder{color:var(--ink-3);opacity:.6}
-.opts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.opt{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 8px;border:1px solid var(--rule);border-radius:999px;font-size:.98rem;min-height:40px;cursor:pointer;background:var(--sheet)}
-.opt input{width:20px;height:20px;margin:0;accent-color:var(--accent)}
-.opt:has(input:checked){border-color:var(--pen);color:var(--pen)}
-.sec{display:flex;flex-direction:column;gap:6px;padding-top:4px}
-.sec-head{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap}
+.dot{flex:1;min-width:3ch;width:100%;border:0;border-bottom:1.5px dotted var(--dots);background:transparent;color:var(--pen);font:inherit;font-size:1.06rem;padding:2px 4px;border-radius:0;-webkit-appearance:none}
+.dot:focus{outline:none;border-bottom:1.5px solid var(--pen);background:color-mix(in srgb,var(--pen) 6%,transparent)}
+.opts{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
+.opt{display:inline-flex;align-items:center;gap:8px;min-height:40px;cursor:pointer;position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt .bx{width:22px;height:22px;border:1.5px solid var(--line);display:inline-grid;place-items:center;flex:none;background:var(--paper)}
+.opt .bx.rd{border-radius:50%}
+.opt input:checked + .bx::after{content:"✓";font-family:var(--hand);color:var(--pen);font-size:1.45rem;line-height:1;transform:translate(2px,-3px)}
+.opt input:checked + .bx.rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--pen);transform:none}
+.opt input:focus-visible + .bx{outline:2px solid var(--pen);outline-offset:2px}
+.opt input:checked ~ .ot{color:var(--pen)}
+.sec{display:flex;flex-direction:column;gap:4px;padding-top:4px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:6px 12px;flex-wrap:wrap}
 .sec-title{font-weight:600}
-.sec-hint{font-family:var(--ui);font-size:.84rem;color:var(--ink-3)}
-.mode{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:2px;background:var(--sheet-2);font-family:var(--ui);font-size:.82rem}
-.mode button{border:0;background:transparent;color:var(--ink-2);padding:3px 14px;border-radius:999px;min-height:32px;cursor:pointer}
-.mode button[aria-pressed="true"]{background:var(--sheet);color:var(--ink);box-shadow:0 0 0 1px var(--rule)}
-textarea.ruled{display:block;width:100%;border:0;resize:none;overflow:hidden;font:inherit;font-size:1.06rem;color:var(--pen);line-height:var(--lh);background-color:transparent;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(var(--lh) - 1px),var(--rule) calc(var(--lh) - 1px),var(--rule) var(--lh));background-attachment:local;padding:0 6px;min-height:calc(var(--lh) * 3);border-radius:0}
+.sec-hint{font-size:.88rem;color:var(--ink-3)}
+.mode{display:inline-flex;border:1px solid var(--line);font-size:.84rem}
+.mode button{border:0;background:var(--paper);color:var(--ink-2);padding:2px 12px;min-height:32px;cursor:pointer}
+.mode button + button{border-left:1px solid var(--line)}
+.mode button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+textarea.ruled{display:block;width:100%;border:0;resize:none;overflow:hidden;font:inherit;font-size:1.06rem;color:var(--pen);line-height:var(--lh);background-color:transparent;background-image:radial-gradient(circle,var(--dots) .9px,transparent 1.3px);background-size:6px var(--lh);background-position:0 calc(var(--lh) / 2 - 3px);background-attachment:local;padding:0 4px;min-height:calc(var(--lh) * 3);border-radius:0}
 textarea.ruled:focus{outline:none;background-color:color-mix(in srgb,var(--pen) 4%,transparent)}
 .inkpad{display:flex;flex-direction:column;gap:6px}
-.ink-surface{border:1px dashed var(--rule);border-radius:6px;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,var(--rule-2) 35px,var(--rule-2) 36px);overflow:hidden}
+.ink-surface{border:1px dashed var(--hair);background-image:radial-gradient(circle,var(--dots) .9px,transparent 1.3px);background-size:6px 38px;background-position:0 16px;overflow:hidden}
 .ink-surface canvas{display:block;width:100%;touch-action:none;cursor:crosshair}
-.sig .ink-surface{background-image:none;background-color:var(--sheet-2);border-style:solid}
-.ink-tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-family:var(--ui)}
-.ink-tools .muted{font-size:.8rem;margin-left:auto}
-.paper-foot{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.82rem;color:var(--ink-3);padding-top:6px;border-top:1px solid var(--rule-2)}
-.sigblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px 24px;align-items:start}
-.sigcol{display:flex;flex-direction:column;gap:8px}
+.sig .ink-surface{background-image:none;background-color:var(--paper-2)}
+.ink-tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ink-tools .muted{font-size:.82rem;margin-left:auto}
+.form-foot{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-3)}
+.sigblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px 28px;align-items:start}
+.sigcol{display:flex;flex-direction:column;gap:6px}
 .sigcol > b{font-weight:600}
 .submit-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 
-/* consent paper header boxes */
-.c-head{display:grid;grid-template-columns:1fr 1.5fr 1.2fr;border:1.5px solid var(--ink);font-size:.98rem}
+/* consent form header */
+.c-head{display:grid;grid-template-columns:1fr 1.5fr 1.2fr;border:1.5px solid var(--line);font-size:.98rem}
 .c-head > div{padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.c-head > div + div{border-left:1.5px solid var(--ink)}
+.c-head > div + div{border-left:1.5px solid var(--line)}
 .c-org{justify-content:space-between}
-.c-org b{font-weight:700;line-height:1.35}
-.c-org .formno{border-top:1.5px solid var(--ink);margin:6px -12px -10px;padding:8px 12px;font-weight:600}
-@media (max-width:760px){.c-head{grid-template-columns:1fr}.c-head > div + div{border-left:0;border-top:1.5px solid var(--ink)}}
-.c-title{text-align:center;font-weight:700;padding:8px 0;border-block:3px double var(--ink)}
+.c-org b{font-weight:700;line-height:1.4}
+.c-org .formno{border-top:1.5px solid var(--line);margin:6px -12px -10px;padding:8px 12px;font-weight:700}
+@media (max-width:760px){.c-head{grid-template-columns:1fr}.c-head > div + div{border-left:0;border-top:1.5px solid var(--line)}}
+.c-title{text-align:center;font-weight:700;padding:8px 0;border-block:3px double var(--line)}
 .mark{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-start;justify-content:space-between}
-.markbox{border:1.5px solid var(--ink);padding:10px 12px;display:flex;flex-direction:column;gap:8px;flex:1 1 320px}
-.prose{line-height:2.2}
+.markbox{border:1.5px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;gap:6px;flex:1 1 320px}
+.prose{line-height:2.25}
 .prose .dot{width:auto;display:inline-block;vertical-align:baseline}
-.legal{color:var(--ink-2);font-size:.98rem;line-height:1.85}
-.paper details{border:1px solid var(--rule);border-radius:6px;padding:8px 12px}
-.paper summary{cursor:pointer;font-weight:600;font-family:var(--ui);font-size:.95rem;min-height:32px}
+.legal{color:var(--ink-2);line-height:1.9}
+.frame details{border:1px dashed var(--line);padding:8px 12px}
+.frame summary{cursor:pointer;font-weight:600;min-height:32px}
 
-/* ---------- rubric / results ---------- */
-.scorehead{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;padding:18px 22px;background:var(--sheet);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow)}
-.bignum{font-family:var(--paper);font-weight:700;font-size:3.1rem;line-height:1;font-variant-numeric:tabular-nums}
-.bignum small{font-size:1.4rem;color:var(--ink-3);font-weight:500}
-.scoreinfo{display:flex;flex-direction:column;gap:4px;flex:1 1 240px;min-width:0}
-.scorehead .row{margin-left:auto}
-.verdict{display:inline-flex;align-self:flex-start;font-weight:600;font-size:.9rem;padding:3px 12px;border-radius:999px}
-.verdict.pass{background:var(--ok-soft);color:var(--ok)}
-.verdict.fail{background:var(--miss-soft);color:var(--miss)}
-.verdict.wait{background:var(--warn-soft);color:var(--warn)}
-.rubric{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
-.item{background:var(--sheet);border:1px solid var(--rule);border-radius:10px}
-.item summary{list-style:none;display:grid;grid-template-columns:2rem minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:12px 14px;cursor:pointer}
-.item summary::-webkit-details-marker{display:none}
-.ino{font-family:var(--mono);font-size:.86rem;color:var(--ink-3)}
-.ititle{font-weight:600;min-width:0}
-.pill{font-size:.78rem;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
-.pill.pass{background:var(--ok-soft);color:var(--ok)}
-.pill.partial{background:var(--warn-soft);color:var(--warn)}
-.pill.miss{background:var(--miss-soft);color:var(--miss)}
-.pill.manual{background:var(--info-soft);color:var(--ink-2)}
-.pts{display:inline-flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
-.ptb{border:0;background:var(--sheet);min-width:40px;min-height:36px;font-family:var(--mono);font-weight:500;cursor:pointer;color:var(--ink-3)}
-.ptb + .ptb{border-left:1px solid var(--rule)}
-.ptb[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
-@media (max-width:600px){.item summary{grid-template-columns:1.6rem minmax(0,1fr) auto}.item .pill{grid-column:2;justify-self:start}.item .pts{grid-row:1;grid-column:3}}
-.item-body{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;padding:2px 14px 16px}
-@media (max-width:700px){.item-body{grid-template-columns:1fr}}
-.item-body > div{min-width:0;display:flex;flex-direction:column;gap:6px}
-.lbl{font-size:.78rem;color:var(--ink-3);letter-spacing:.05em}
-.answer{font-family:var(--paper);color:var(--pen);white-space:pre-wrap;background:var(--sheet-2);border-radius:6px;padding:10px 12px;max-height:280px;overflow:auto;word-break:break-word}
-.answer .empty{color:var(--ink-3);font-family:var(--ui);font-size:.9rem}
+/* ---------- grading sheet ---------- */
+.rhead{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;padding-bottom:18px;border-bottom:1.5px solid var(--line)}
+.redscore{font-family:var(--hand);color:var(--red);font-size:2.8rem;line-height:1;padding:.18em .55em;border:2.5px solid var(--red);border-radius:50%;transform:rotate(-5deg);font-variant-numeric:tabular-nums;white-space:nowrap}
+.redscore small{font-size:1.5rem}
+.scoreinfo{display:flex;flex-direction:column;gap:6px;flex:1 1 240px;min-width:0}
+.rhead .row{margin-left:auto}
+.grade{border:1.5px solid var(--line)}
+.grade-head,.g-row summary{display:grid;grid-template-columns:3rem minmax(0,1fr) 7rem 7.2rem}
+.grade-head{background:var(--paper-2);font-weight:700;text-align:center;border-bottom:1.5px solid var(--line)}
+.grade-head span{padding:6px 8px}
+.grade-head span + span{border-left:1px solid var(--line)}
+.g-row + .g-row{border-top:1px solid var(--line)}
+.g-row summary{list-style:none;cursor:pointer}
+.g-row summary::-webkit-details-marker{display:none}
+.g-row summary > span{padding:10px;display:flex;align-items:center;min-width:0}
+.g-row summary > span + span{border-left:1px solid var(--line)}
+.gno{justify-content:center;font-variant-numeric:tabular-nums}
+.gtitle{font-weight:600;gap:8px}
+.gtitle::after{content:"▾";font-size:.8rem;color:var(--ink-3);margin-left:auto;transition:transform .15s}
+.g-row:not([open]) .gtitle::after{transform:rotate(-90deg)}
+.gmark{flex-direction:column;justify-content:center;line-height:1.1;text-align:center}
+.gmark .hand{font-size:1.7rem;line-height:1}
+.gmark small{font-size:.76rem;color:var(--ink-3)}
+.gmark.manual .hand{color:var(--ink-3)}
+.gpts{justify-content:center;gap:6px}
+.ptb{width:40px;height:40px;border:1px solid var(--hair);border-radius:50%;background:transparent;font-family:var(--hand);font-size:1.25rem;color:var(--ink-3);cursor:pointer;line-height:1}
+.ptb[aria-pressed="true"]{border:2.5px solid var(--red);color:var(--red)}
+@media (max-width:640px){
+  .grade-head{display:none}
+  .g-row summary{grid-template-columns:2.2rem minmax(0,1fr) auto}
+  .g-row summary > span + span{border-left:0}
+  .gmark{grid-column:2;grid-row:2;flex-direction:row;justify-content:flex-start;gap:8px;padding-top:0!important}
+  .gpts{grid-column:3;grid-row:1/span 2}
+}
+.g-body{border-top:1px dashed var(--hair);padding:12px 14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 18px}
+@media (max-width:700px){.g-body{grid-template-columns:1fr}}
+.g-body > div{min-width:0;display:flex;flex-direction:column;gap:6px}
+.lbl{font-size:.82rem;color:var(--ink-3);font-weight:600}
+.answer{color:var(--pen);white-space:pre-wrap;border:1px dotted var(--dots);padding:8px 12px;max-height:280px;overflow:auto;word-break:break-word}
+.answer .empty{color:var(--ink-3);font-size:.9rem}
 .answer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px}
-.answer dt{color:var(--ink-3);font-family:var(--ui);font-size:.86rem}
+.answer dt{color:var(--ink-3);font-size:.88rem}
 .answer dd{margin:0}
-.answer + .answer{margin-top:4px}
-.keytext{font-family:var(--paper);white-space:pre-wrap;padding:10px 12px;border:1px dashed var(--rule);border-radius:6px;word-break:break-word}
-canvas.thumb{display:block;width:100%;background:var(--sheet);border-radius:4px}
-.checks{grid-column:1/-1;list-style:none;margin:0;padding:10px 0 0;border-top:1px solid var(--rule-2);display:flex;flex-direction:column;gap:4px;font-size:.95rem}
-.checks li{display:grid;grid-template-columns:1.3rem 1fr;gap:6px;align-items:baseline}
-.checks .mk{font-weight:700}
-.checks li.ok .mk{color:var(--ok)}
-.checks li.no .mk{color:var(--miss)}
-.checks small{display:block;color:var(--ink-3);font-size:.85rem}
-.ovnote{grid-column:1/-1;font-size:.86rem;color:var(--ink-3)}
+.keytext{white-space:pre-wrap;padding:8px 12px;border:1.5px solid var(--line);word-break:break-word}
+canvas.thumb{display:block;width:100%;border:1px dotted var(--dots)}
+.checks{grid-column:1/-1;list-style:none;margin:0;padding:8px 0 0;border-top:1px dashed var(--hair);display:flex;flex-direction:column;gap:2px;font-size:.96rem}
+.checks li{display:grid;grid-template-columns:1.6rem 1fr;gap:6px;align-items:baseline}
+.checks .mk{font-family:var(--hand);color:var(--red);font-size:1.2rem;line-height:1}
+.checks small{display:block;color:var(--red);font-size:.88rem}
+.ovnote{grid-column:1/-1;font-size:.88rem;color:var(--ink-3)}
 
 /* ---------- consent ---------- */
-.cwrap{max-width:1180px;margin:0 auto;padding-block:18px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px;min-height:100%}
-.cwrap.narrow{max-width:820px;padding-block:32px 56px}
-.cwrap.talking{padding-bottom:0}
-.formcol{width:100%;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
-.strip{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--rule)}
-.who{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline}
-.who b{font-weight:600}
-.role-tag{font-size:.78rem;color:var(--ink-3);margin-right:4px}
-.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
-.role{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
-.role h2{font-size:1.15rem;font-weight:600}
-.role ul,.role ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
-.handoff{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding:16px 20px;border-radius:12px;background:var(--accent-soft)}
-.handoff p{font-weight:500}
-.pairnames{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:.9rem;color:var(--ink-2)}
-.field input,.field textarea{font:inherit;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;background:var(--sheet);color:var(--ink);min-height:46px}
-.field textarea{min-height:90px;resize:vertical}
-.flow{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--rule)}
-.flow li{display:grid;grid-template-columns:2.2rem 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--rule-2)}
-.flow .fn{font-family:var(--mono);color:var(--accent);font-weight:500}
-.flow b{font-weight:600}
-
-.talk{display:grid;grid-template-columns:minmax(0,7fr) minmax(300px,5fr);gap:24px;align-items:start}
+.strip{max-width:1180px;width:100%;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;justify-content:space-between}
+.who{display:flex;flex-wrap:wrap;gap:2px 18px;align-items:baseline}
+.who b{font-weight:700}
+.role-tag{color:var(--ink-3);margin-right:4px;font-size:.92rem}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:22px;max-width:1180px;width:100%;margin:0 auto}
+.roles .sheet{max-width:none;margin:0}
+.role-head{border:1.5px solid var(--line);display:grid;grid-template-columns:auto 1fr}
+.role-head span{padding:6px 12px;font-weight:700}
+.role-head span + span{border-left:1.5px solid var(--line);font-weight:400}
+.sheet ul,.sheet ol.plain{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.handoff{max-width:1180px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding:14px 18px;border:1.5px dashed var(--line);background:var(--paper)}
+.handoff p{font-weight:600}
+.flow{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.flow li{display:grid;grid-template-columns:2rem 1fr;gap:8px}
+.flow .fn{font-weight:700}
+.talk{display:grid;grid-template-columns:minmax(0,7fr) minmax(300px,5fr);gap:22px;align-items:start;max-width:1180px;width:100%;margin:0 auto}
 @media (max-width:999px){.talk{grid-template-columns:1fr}}
-.side{display:flex;flex-direction:column;gap:16px;position:sticky;top:12px}
+.talk > .sheet{max-width:none;margin:0}
+.side{display:flex;flex-direction:column;gap:18px;position:sticky;top:12px}
 @media (max-width:999px){.side{position:static}}
-.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
-.panel h3{font-size:1rem;font-weight:600}
-.checklist{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;display:flex;flex-direction:column}
-.checklist > header{padding:16px 18px 10px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--rule)}
-.checklist > header h2{font-size:1.15rem;font-weight:600}
-.cl{list-style:none;margin:0;padding:0 8px}
-.cl ol{list-style:none;margin:0;padding:0 0 0 1.4rem}
-.ck{display:grid;grid-template-columns:28px 3rem 1fr;align-items:start;gap:10px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--rule-2);padding:12px 8px;min-height:54px;cursor:pointer;border-radius:6px}
-.ck:hover{background:var(--sheet-2)}
-.ck .box{width:26px;height:26px;border:2px solid var(--ink-3);border-radius:6px;display:grid;place-items:center;margin-top:1px}
-.ck[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
-.ck[aria-pressed="true"] .box::after{content:"";width:7px;height:13px;border:solid var(--accent-ink);border-width:0 3px 3px 0;transform:translate(0,-1px) rotate(45deg)}
-.ck .no{font-family:var(--mono);color:var(--ink-3);font-size:.88rem;padding-top:2px}
-.ck .tx small{display:block;color:var(--ink-3);font-size:.86rem;margin-top:2px}
-.grp-h{display:grid;grid-template-columns:3rem 1fr;gap:10px;padding:14px 8px 4px 46px;font-weight:600}
-.grp-h .no{font-family:var(--mono);color:var(--ink-3);font-size:.88rem;font-weight:400}
-.sub-h{padding:8px 8px 2px 46px;font-size:.88rem;color:var(--ink-2);font-weight:600}
-.scorebar{position:sticky;bottom:0;z-index:3;background:var(--sheet);border-top:1px solid var(--rule);border-radius:0 0 12px 12px;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap}
-.sb-num{font-family:var(--paper);font-weight:700;font-size:1.5rem;font-variant-numeric:tabular-nums;line-height:1}
-.sb-num small{font-size:1rem;color:var(--ink-3);font-weight:500}
-.segs{position:relative;display:grid;grid-template-columns:repeat(25,1fr);gap:2px;flex:1 1 200px;height:12px}
-.seg{background:var(--rule-2);border-radius:2px}
-.seg.on{background:var(--accent)}
-.segs .passline{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--ink);left:calc(14 / 25 * 100% - 1px)}
-.sb-pass{font-size:.85rem;color:var(--ink-3)}
-.misslist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
-.misslist li{display:grid;grid-template-columns:3rem 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--rule-2)}
-.misslist .no{font-family:var(--mono);color:var(--ink-3);font-size:.88rem}
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
-.sumcard{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
-.sumcard h2{font-size:1.2rem;font-weight:600}
-.sumcard dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:6px 14px}
-.sumcard dt{color:var(--ink-2)}
-.sumcard dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:10px 18px;border-radius:999px;font-size:.92rem;z-index:20;box-shadow:var(--shadow)}
+.side .sheet{max-width:none;margin:0}
+.side h3{font-size:1.02rem}
+.field textarea{font:inherit;color:var(--pen);border:1px dotted var(--dots);padding:8px 10px;background:var(--paper);min-height:96px;resize:vertical;width:100%}
+.ck-sheet{padding-bottom:0!important}
+.cktable{border:1.5px solid var(--line)}
+.ck-head,.ck,.ck-grp{display:grid;grid-template-columns:4rem minmax(0,1fr) 4.6rem}
+.ck-head{background:var(--paper-2);font-weight:700;text-align:center;border-bottom:1.5px solid var(--line)}
+.ck-head span{padding:6px}
+.ck-head span + span,.ck > span + span,.ck-grp > span + span{border-left:1px solid var(--line)}
+.cl{list-style:none;margin:0;padding:0}
+.cl li + li{border-top:1px solid var(--line)}
+.ck{width:100%;text-align:left;background:var(--paper);border:0;padding:0;min-height:52px;cursor:pointer}
+.ck:hover{background:var(--paper-2)}
+.ck > span{padding:10px 12px;display:flex;align-items:flex-start}
+.ck .no{justify-content:center;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.ck .tx{flex-direction:column}
+.ck .tx small{display:block;color:var(--ink-3);font-size:.9rem}
+.ck.indent .tx{padding-left:28px}
+.ck .got{justify-content:center;align-items:center;font-family:var(--hand);color:var(--red);font-size:1.9rem;line-height:1}
+.ck[aria-pressed="true"] .got::after{content:"✓"}
+.ck-grp{background:var(--paper-2);font-weight:700}
+.ck-grp > span{padding:8px 12px}
+.ck-grp .no{text-align:center;font-weight:400;color:var(--ink-2)}
+.ck-grp.sub .tx{padding-left:28px;font-weight:600}
+.ck-total{position:sticky;bottom:0;z-index:3;background:var(--paper);border-top:3px double var(--line);margin:0 calc(-1 * clamp(18px,5.5vw,64px));padding:12px clamp(18px,5.5vw,64px) calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:baseline;gap:6px 14px;flex-wrap:wrap}
+.ck-total b{font-weight:700}
+.ck-total .hand{font-size:2rem;line-height:1;min-width:2.2ch;text-align:center;border-bottom:1.5px dotted var(--dots)}
+.misslist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.misslist li{display:grid;grid-template-columns:3.4rem 1fr;gap:8px;padding:5px 0;border-bottom:1px dotted var(--dots)}
+.misslist .no{color:var(--ink-3)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 18px;font-size:.95rem;z-index:20;box-shadow:var(--shadow)}
 </style>
 </head>
 <body>
 
 <div class="app">
   <header class="bar">
-    <button class="brand" data-act="go" data-arg="home" aria-label="กลับหน้าแรก"><span class="brand-mark" aria-hidden="true"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="1.5" y="3" width="13" height="14" rx="2"/><path d="M5.5 1.5h5v3h-5z" fill="currentColor"/><path d="M4.5 9h7M4.5 12h7M4.5 15h4"/></svg></span><span>ฝึกใบส่งตัวและใบยินยอม</span></button>
+    <button class="brand" data-act="go" data-arg="home" aria-label="กลับหน้าแรก"><span class="brand-mark" aria-hidden="true"><svg width="15" height="17" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="1.5" y="3" width="13" height="14" rx="1"/><path d="M5.5 1.5h5v3h-5z" fill="currentColor"/><path d="M4.5 9h7M4.5 12h7M4.5 15h4"/></svg></span><span>ฝึกใบส่งตัวและใบยินยอม</span></button>
     <span class="crumb" id="crumb" hidden></span>
     <div class="bar-tools">
       <label class="switch" id="fingerSw" hidden><input type="checkbox" id="fingerToggle" data-bind="ui.finger"> เขียนด้วยนิ้วได้</label>
-      <span class="chip" id="timer" hidden aria-live="off"></span>
+      <span class="chip" id="timer" hidden></span>
     </div>
   </header>
   <main id="view"></main>
@@ -558,8 +562,9 @@ const CONSENT_ITEMS=[
 ];
 
 /* ===================== rubric engine ===================== */
+const TH=n=>String(n).replace(/\d/g,d=>'๐๑๒๓๔๕๖๗๘๙'[d]);
 function ctxRefer(){const r=S.refer;return{scope:'refer',f:r.f,m:r.m,ink:r.ink,ov:r.ov,choice:r.first||r.choice}}
-function ctxRound(i){const r=S.consent.rounds[i];return{scope:'consent.rounds.'+i,f:r.f,m:r.m,ink:r.ink,ov:r.ov,choice:r.first||r.choice,now:r.choice}}
+function ctxRound(i){const r=S.consent.rounds[i];return{scope:'consent.rounds.'+i,f:r.f,m:r.m,ink:r.ink,ov:r.ov,choice:r.first||r.choice}}
 function evalItem(it,c){
   const secs=it.sections||[];
   const text=N(secs.map(k=>c.m[k]==='ink'?'':(c.f[k]||'')).join(' '));
@@ -571,7 +576,7 @@ function evalItem(it,c){
   return{res,status,auto:status==='pass'?1:status==='manual'?null:0};
 }
 function tally(items,c){let s=0,p=0;items.forEach(it=>{const e=evalItem(it,c);const ov=c.ov[it.id];const v=ov!=null?ov:e.auto;if(v==null)p++;else s+=v});return{s,p,t:items.length}}
-const STATUS={pass:'ครบตามเฉลย',partial:'ยังไม่ครบ',miss:'ไม่พบ',manual:'ตรวจด้วยตา'};
+const MARK={pass:['✓','ครบตามเฉลย'],partial:['–','ยังไม่ครบ'],miss:['✕','ไม่พบ'],manual:['?','ตรวจด้วยตา']};
 function showSections(it,c){
   return it.sections.map(k=>{
     const label=it.sections.length>1?`<p class="lbl">${esc(LABELS[k]||k)}</p>`:'';
@@ -580,28 +585,30 @@ function showSections(it,c){
   }).join('');
 }
 function rubricHTML(items,c){
-  return `<ol class="rubric">${items.map((it,i)=>{
-    const e=evalItem(it,c);const ov=c.ov[it.id];const pts=ov!=null?ov:e.auto;
-    return `<li class="item" data-status="${e.status}"><details${e.status!=='pass'?' open':''}><summary>
-      <span class="ino">${i+1}</span><span class="ititle">${esc(it.title)}</span>
-      <span class="pill ${e.status}">${STATUS[e.status]}</span>
-      <span class="pts" role="group" aria-label="คะแนนข้อ ${i+1}">
-        <button type="button" class="ptb" data-act="ov" data-arg="${c.scope}|${it.id}|0" aria-pressed="${pts===0}">0</button><button type="button" class="ptb" data-act="ov" data-arg="${c.scope}|${it.id}|1" aria-pressed="${pts===1}">1</button>
-      </span></summary>
-      <div class="item-body">
+  return `<div class="grade" role="table" aria-label="ตารางให้คะแนน">
+    <div class="grade-head" role="row"><span>ข้อ</span><span>หัวข้อ</span><span>ผลตรวจ</span><span>คะแนน</span></div>
+    ${items.map((it,i)=>{
+    const e=evalItem(it,c);const ov=c.ov[it.id];const pts=ov!=null?ov:e.auto;const mk=MARK[e.status];
+    return `<details class="g-row"${e.status!=='pass'?' open':''}><summary>
+      <span class="gno">${i+1}</span><span class="gtitle">${esc(it.title)}</span>
+      <span class="gmark ${e.status}"><span class="hand" aria-hidden="true">${mk[0]}</span><small>${mk[1]}</small></span>
+      <span class="gpts" role="group" aria-label="คะแนนข้อ ${i+1}"><button type="button" class="ptb" data-act="ov" data-arg="${c.scope}|${it.id}|0" aria-pressed="${pts===0}">0</button><button type="button" class="ptb" data-act="ov" data-arg="${c.scope}|${it.id}|1" aria-pressed="${pts===1}">1</button></span>
+      </summary>
+      <div class="g-body">
         <div><p class="lbl">ที่เขียน</p>${it.show?it.show(c):showSections(it,c)}</div>
         <div><p class="lbl">เฉลย</p><div class="keytext">${esc(it.key)}</div></div>
-        <ul class="checks">${e.res.map(r=>`<li class="${r.ok?'ok':'no'}"><span class="mk" aria-hidden="true">${r.ok?'✓':'✕'}</span><span>${esc(r.label)}${r.miss.length?`<small>ยังขาด: ${esc(r.miss.join(', '))}</small>`:''}</span></li>`).join('')}</ul>
-        ${e.status==='manual'&&ov==null?`<p class="ovnote">ข้อนี้เขียนด้วยมือ ให้เทียบกับเฉลยแล้วแตะ 0 หรือ 1 ด้านบน</p>`:''}
-        ${ov!=null&&ov!==e.auto?`<p class="ovnote">ปรับคะแนนเองแล้ว · <button type="button" class="linkbtn" data-act="ovClear" data-arg="${c.scope}|${it.id}">ใช้ผลตรวจอัตโนมัติ</button></p>`:''}
-      </div></details></li>`}).join('')}</ol>`;
+        <ul class="checks">${e.res.map(r=>`<li><span class="mk" aria-hidden="true">${r.ok?'✓':'✕'}</span><span>${esc(r.label)}${r.miss.length?`<small>ยังขาด: ${esc(r.miss.join(', '))}</small>`:''}</span></li>`).join('')}</ul>
+        ${e.status==='manual'&&ov==null?`<p class="ovnote">ข้อนี้เขียนด้วยมือ ให้เทียบกับเฉลยแล้วแตะ 0 หรือ 1 ในช่องคะแนน</p>`:''}
+        ${ov!=null&&ov!==e.auto?`<p class="ovnote">ผู้ตรวจปรับคะแนนเอง · <button type="button" class="linkbtn" data-act="ovClear" data-arg="${c.scope}|${it.id}">ใช้ผลตรวจอัตโนมัติ</button></p>`:''}
+      </div></details>`}).join('')}
+  </div>`;
 }
 
 /* ===================== form building blocks ===================== */
 function inp(path,label,w,extra){const v=get(path);return `<label class="fl" style="--w:${w||'12rem'}">${label?`<span>${label}</span>`:''}<input class="dot" id="${fid(path)}" data-bind="${path}" value="${esc(v||'')}" autocomplete="off" ${extra||''}></label>`}
-function inl(path,w,extra){const v=get(path);return `<input class="dot" style="width:${w||'10rem'};max-width:100%" id="${fid(path)}" data-bind="${path}" value="${esc(v||'')}" autocomplete="off" aria-label="${esc(extra||'')}">`}
-function chk(path,label){return `<label class="opt"><input type="checkbox" id="${fid(path)}" data-bind="${path}" ${get(path)?'checked':''}> ${label}</label>`}
-function rad(path,val,label){return `<label class="opt"><input type="radio" name="${fid(path)}" id="${fid(path)}_${val}" data-bind="${path}" value="${val}" ${get(path)===val?'checked':''}> ${label}</label>`}
+function inl(path,w,aria){const v=get(path);return `<input class="dot" style="width:${w||'10rem'};max-width:100%" id="${fid(path)}" data-bind="${path}" value="${esc(v||'')}" autocomplete="off" aria-label="${esc(aria||'')}">`}
+function chk(path,label){return `<label class="opt"><input type="checkbox" id="${fid(path)}" data-bind="${path}" ${get(path)?'checked':''}><span class="bx" aria-hidden="true"></span><span class="ot">${label}</span></label>`}
+function rad(path,val,label){return `<label class="opt"><input type="radio" name="${fid(path)}" id="${fid(path)}_${val}" data-bind="${path}" value="${val}" ${get(path)===val?'checked':''}><span class="bx rd" aria-hidden="true"></span><span class="ot">${label}</span></label>`}
 function areaBody(scope,key,rows){
   const mode=get(scope+'.m.'+key)||'type';
   if(mode==='ink') return inkpad(scope+'.ink.'+key,'',rows*44+40);
@@ -675,56 +682,51 @@ try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{pa
 /* ===================== views: home ===================== */
 const fmtTime=ms=>{const s=Math.max(0,Math.floor(ms/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 const fmtDate=t=>{try{return new Date(t).toLocaleString('th-TH',{day:'numeric',month:'short',year:'2-digit',hour:'2-digit',minute:'2-digit'})}catch(e){return new Date(t).toISOString()}};
+const thToday=()=>{try{return new Date().toLocaleDateString('th-TH-u-nu-thai',{day:'numeric',month:'long',year:'numeric'})}catch(e){return new Date().toLocaleDateString('th-TH')}};
 function homeView(){
   const r=S.refer;let rStatus='ยังไม่เริ่ม';
   if(r.stage==='result'){const t=tally(REFER_ITEMS,ctxRefer());rStatus=`ตรวจแล้ว ${t.s}/${t.t}`}else if(r.stage==='write'||r.choice)rStatus='กำลังเขียน';
   const c=S.consent;let cStatus='ยังไม่เริ่ม';
   if(c.stage==='summary')cStatus='ครบ 2 รอบ';else if(c.stage!=='setup')cStatus=`รอบที่ ${c.round+1} กำลังทำ`;
-  const hist=S.history.slice().reverse().slice(0,12);
-  return `<div class="wrap">
-  <header class="intro">
-    <p class="eyebrow">สำหรับนักศึกษาแพทย์ระดับ clerkship</p>
-    <h1>ฝึกเขียนใบ Refer และการขอความยินยอมก่อนทำหัตถการ</h1>
-    <p class="lede">ทำบน iPad ได้ทั้งพิมพ์และเขียนด้วย Apple Pencil เขียนเสร็จแล้วระบบเทียบกับเฉลยทีละหัวข้อ และให้ผู้สอนหรือเพื่อนปรับคะแนนได้ทุกข้อ</p>
-  </header>
-  <div class="modules">
-    <article class="folder"><div class="tab">แบบฝึกที่ 1 · ทำคนเดียว</div>
-      <h2>เขียนใบ Refer</h2>
-      <p>แพทย์ใช้ทุน รพ.เขาสวนกวาง ส่งผู้ป่วยชาย 50 ปี Acute cholecystitis with septic shock ไปรักษาต่อที่ รพ.ขอนแก่น</p>
-      <dl class="meta"><div><dt>แบบฟอร์ม</dt><dd>พ.87</dd></div><div><dt>คะแนนเต็ม</dt><dd>${REFER_ITEMS.length}</dd></div><div><dt>สถานะ</dt><dd>${rStatus}</dd></div></dl>
-      <button class="btn primary" data-act="go" data-arg="refer">${r.stage==='choose'&&!r.choice?'เริ่มเขียน':'ทำต่อ'}</button>
-    </article>
-    <article class="folder"><div class="tab">แบบฝึกที่ 2 · จับคู่</div>
-      <h2>ขอความยินยอมก่อนผ่าตัด</h2>
-      <p>ขออนุญาตทำ Open appendectomy ในผู้ป่วยชาย 20 ปี ปวดท้องน้อยขวา 1 วัน ผลัดกันเป็นแพทย์และผู้ป่วย แล้วเขียนใบยินยอมให้ถูกใบ</p>
-      <dl class="meta"><div><dt>Checklist</dt><dd>${CK_TOTAL} ข้อ</dd></div><div><dt>เกณฑ์ผ่าน</dt><dd>${PASS} คะแนนขึ้นไป</dd></div><div><dt>สถานะ</dt><dd>${cStatus}</dd></div></dl>
-      <button class="btn primary" data-act="go" data-arg="consent">${c.stage==='setup'?'เริ่มจับคู่':'ทำต่อ'}</button>
-    </article>
-  </div>
-  <section class="history"><h2>ผลที่บันทึกไว้บนเครื่องนี้</h2>
-    ${hist.length?`<ul class="hist">${hist.map(h=>h.type==='refer'
-      ?`<li><time>${fmtDate(h.at)}</time><span>ใบ Refer${h.name?' · '+esc(h.name):''}</span><b>${h.s}/${h.t}${h.p?` <span class="muted">(รอตรวจ ${h.p})</span>`:''}</b></li>`
-      :`<li><time>${fmtDate(h.at)}</time><span>Consent · ${esc(h.a)} และ ${esc(h.b)}</span><b>${h.sa}/${CK_TOTAL} · ${h.sb}/${CK_TOTAL}</b></li>`).join('')}</ul>`
+  const hist=S.history.slice().reverse().slice(0,15);
+  return `<div class="deskwrap"><article class="sheet">
+    <span class="stamp">ฉบับฝึก</span>
+    <p class="pageno">- ๑ -</p>
+    <h1 class="memo-word">บันทึกข้อความ</h1>
+    <dl class="memo">
+      <div class="r"><div><dt>ส่วนงาน</dt><dd>แบบฝึกทักษะเอกสารทางการแพทย์ ระดับ clerkship</dd></div></div>
+      <div class="r"><div><dt>ที่</dt><dd>แบบฝึก ๑–๒</dd></div><div><dt>วันที่</dt><dd>${thToday()}</dd></div></div>
+      <div class="r"><div><dt>เรื่อง</dt><dd>ฝึกเขียนใบ Refer และการขอความยินยอมก่อนทำหัตถการ</dd></div></div>
+    </dl>
+    <p><b>เรียน</b> นักศึกษาแพทย์</p>
+    <p class="para">แบบฝึกชุดนี้ทำบน iPad ได้ทั้งพิมพ์และเขียนด้วย Apple Pencil เมื่อเขียนเสร็จ ระบบจะเทียบกับเฉลยทีละหัวข้อ และผู้ตรวจปรับคะแนนได้ทุกข้อ รายละเอียดดังตารางต่อไปนี้</p>
+    <div class="tablewrap"><table class="doc">
+      <thead><tr><th style="width:3.5rem">ลำดับ</th><th>แบบฝึก</th><th style="width:7.5rem">คะแนน</th><th style="width:8rem">สถานะ</th><th style="width:7.5rem"></th></tr></thead>
+      <tbody>
+        <tr><td class="c">๑</td><td><b>เขียนใบ Refer</b> (แบบ พ.87)<span class="sub">แพทย์ใช้ทุน รพ.เขาสวนกวาง ส่งผู้ป่วยชาย 50 ปี Acute cholecystitis with septic shock ไปรักษาต่อที่ รพ.ขอนแก่น · ทำคนเดียว</span></td><td class="c">เต็ม ${REFER_ITEMS.length}</td><td class="c">${rStatus}</td><td class="c"><button class="btn sm primary" data-act="go" data-arg="refer">${r.stage==='choose'&&!r.choice?'เริ่ม':'ทำต่อ'}</button></td></tr>
+        <tr><td class="c">๒</td><td><b>ขอความยินยอมก่อนผ่าตัด</b> (Informed consent)<span class="sub">ขออนุญาตทำ Open appendectomy ในผู้ป่วยชาย 20 ปี ปวดท้องน้อยขวา 1 วัน · จับคู่ สลับบทแพทย์–ผู้ป่วย</span></td><td class="c">${CK_TOTAL} ข้อ<span class="sub">ผ่าน ≥ ${PASS}</span></td><td class="c">${cStatus}</td><td class="c"><button class="btn sm primary" data-act="go" data-arg="consent">${c.stage==='setup'?'เริ่ม':'ทำต่อ'}</button></td></tr>
+      </tbody></table></div>
+    <p class="para">จึงเรียนมาเพื่อโปรดทราบและฝึกปฏิบัติ</p>
+    <h2 class="doc-h" style="margin-top:12px">ทะเบียนผลการฝึก <span class="muted" style="font-weight:400">(บันทึกในเครื่องนี้)</span></h2>
+    ${hist.length?`<div class="tablewrap"><table class="doc"><thead><tr><th style="width:11rem">วันที่</th><th>แบบฝึก</th><th style="width:10rem">คะแนน</th></tr></thead><tbody>${hist.map(h=>h.type==='refer'
+      ?`<tr><td>${fmtDate(h.at)}</td><td>ใบ Refer${h.name?' · '+esc(h.name):''}</td><td class="c"><span class="hand">${h.s}/${h.t}</span>${h.p?`<span class="sub">รอตรวจ ${h.p} ข้อ</span>`:''}</td></tr>`
+      :`<tr><td>${fmtDate(h.at)}</td><td>Informed consent · ${esc(h.a)} และ ${esc(h.b)}</td><td class="c"><span class="hand">${h.sa} · ${h.sb}</span><span class="sub">จาก ${CK_TOTAL}</span></td></tr>`).join('')}</tbody></table></div>`
       :`<p class="muted">ยังไม่มีผลที่บันทึก เมื่อตรวจคะแนนเสร็จแล้วกด "บันทึกผล" รายการจะแสดงที่นี่</p>`}
-  </section>
-  <p class="foot">ข้อมูลทั้งหมดเก็บอยู่ในเบราว์เซอร์ของเครื่องนี้เท่านั้น ไม่ถูกส่งออกไปที่อื่น</p>
-</div>`;
+    <p class="muted">ข้อมูลทั้งหมดเก็บอยู่ในเบราว์เซอร์ของเครื่องนี้เท่านั้น ไม่ถูกส่งออกไปที่อื่น</p>
+  </article></div>`;
 }
 
 /* ===================== views: refer ===================== */
 function stepsHTML(labels,cur,act,enabled){
-  return `<ol class="steps">${labels.map((l,i)=>`<li><button type="button" class="step ${i<cur?'done':''}" ${i===cur?'aria-current="step"':''} data-act="${act}" data-arg="${i}" ${enabled&&!enabled(i)?'disabled':''}><span class="sn">${i+1}</span>${l}</button></li>`).join('')}</ol>`;
+  return `<ol class="steps">${labels.map((l,i)=>`<li><button type="button" class="step ${i<cur?'done':''}" ${i===cur?'aria-current="step"':''} data-act="${act}" data-arg="${i}" ${enabled&&!enabled(i)?'disabled':''}>${TH(i+1)}. ${l}</button></li>`).join('')}</ol>`;
 }
 function referView(){
   const r=S.refer, open=S.ui.caseOpen!==false;
   const cur={choose:0,write:1,result:2}[r.stage]||0;
-  let work='';
-  if(r.stage==='choose') work=referChoose();
-  else if(r.stage==='write') work=referForm();
-  else work=referResult();
+  const work=r.stage==='choose'?referChoose():r.stage==='write'?referForm():referResult();
   return `<div class="split">
     <section class="pane case ${open?'':'collapsed'}" aria-label="โจทย์">
-      <div class="pane-head"><div><p class="eyebrow">โจทย์</p><h2>นายพร เพชรงาม · HN 4512/51</h2></div><button type="button" class="btn sm only-narrow" data-act="toggleCase">${open?'ซ่อนโจทย์':'แสดงโจทย์'}</button></div>
+      <div class="pane-head"><div><p class="lab-tag">ข้อมูลผู้ป่วยตามโจทย์</p><h2>นายพร เพชรงาม · HN 4512/51</h2></div><button type="button" class="btn sm only-narrow" data-act="toggleCase">${open?'ซ่อนโจทย์':'แสดงโจทย์'}</button></div>
       <div class="case-body">${caseHTML()}</div>
     </section>
     <section class="pane work"><div class="work-inner">
@@ -735,20 +737,22 @@ function referView(){
 }
 function referChoose(){
   const ch=S.refer.choice;
-  const tile=(id,title,sub,code,right)=>`<button type="button" class="choice ${right?'right':'wrong'}" data-act="referChoose" data-arg="${id}" aria-pressed="${ch===id}"><span class="code">${code}</span><span class="mini-title">${title}</span><span class="mini-sub">${sub}</span></button>`;
-  return `<h2 class="h-sec">ใช้แบบฟอร์มไหนส่งผู้ป่วยรายนี้</h2>
-  <p class="muted">ขั้นนี้ไม่นับคะแนน แต่ช่วยฝึกเลือกแบบฟอร์มให้ถูก</p>
+  const tile=(id,title,sub,code,right)=>`<button type="button" class="choice ${right?'right':'wrong'}" data-act="referChoose" data-arg="${id}" aria-pressed="${ch===id}"><span class="mini-title">${title}</span><span class="mini-sub">${sub}</span><span class="code">${code}</span></button>`;
+  return `<article class="sheet"><h2 class="doc-h">ใช้แบบฟอร์มไหนส่งผู้ป่วยรายนี้</h2>
+  <p class="muted" style="margin-top:-10px">ขั้นนี้ไม่นับคะแนน แต่ช่วยฝึกเลือกแบบฟอร์มให้ถูก</p>
   <div class="choices">
-    ${tile('p87','แบบสำหรับส่งผู้ป่วยไปรับการตรวจหรือรักษาต่อ','มีช่องประวัติ ผลตรวจทางห้องทดลอง การวินิจฉัยเบื้องต้น การรักษาที่ให้ไว้แล้ว สาเหตุที่ส่ง','พ.87',true)}
-    ${tile('reply','แบบแจ้งผลการตรวจ การรักษาหรือส่งผู้ป่วยกลับ','มีช่องผลชันสูตร การวินิจฉัยขั้นสุดท้าย การรักษาที่ให้ ขอให้ดำเนินการต่อ','ใบตอบกลับ',false)}
+    ${tile('p87','แบบสำหรับส่งผู้ป่วยไปรับการตรวจหรือรักษาต่อ','ช่องประวัติ ผลตรวจทางห้องทดลอง การวินิจฉัยเบื้องต้น การรักษาที่ได้ให้ไว้แล้ว สาเหตุที่ส่ง','พ.87',true)}
+    ${tile('reply','แบบแจ้งผลการตรวจ การรักษาหรือส่งผู้ป่วยกลับ','ช่องผลชันสูตร การวินิจฉัยโรคขั้นสุดท้าย การรักษาที่ให้ ขอให้ดำเนินการต่อ','ใบตอบกลับ',false)}
   </div>
-  ${ch?`<div class="note ${ch==='p87'?'ok':'bad'}"><b>${ch==='p87'?'ถูกต้อง':'ยังไม่ใช่ใบนี้'}</b><p>เราเป็นโรงพยาบาลต้นทางที่ส่งผู้ป่วยไปรักษาต่อ จึงใช้แบบ พ.87 ส่วนแบบแจ้งผลการตรวจฯ เป็นใบที่โรงพยาบาลปลายทางใช้ตอบกลับหลังรับผู้ป่วยไว้แล้ว แม้โจทย์จะใช้คำว่า "ส่งกลับ" ก็ยังเป็นการส่งต่อจากฝั่งเรา</p></div>
-  <div class="row"><button type="button" class="btn primary lg" data-act="referToForm">ไปเขียนแบบ พ.87</button></div>`:''}`;
+  ${ch?`<div class="note ${ch==='p87'?'ok':'bad'}"><b>${ch==='p87'?'ถูกต้อง':'ยังไม่ใช่ใบนี้'}</b>เราเป็นโรงพยาบาลต้นทางที่ส่งผู้ป่วยไปรักษาต่อ จึงใช้แบบ พ.87 ส่วนแบบแจ้งผลการตรวจฯ เป็นใบที่โรงพยาบาลปลายทางใช้ตอบกลับหลังรับผู้ป่วยไว้แล้ว แม้โจทย์จะใช้คำว่า "ส่งกลับ" ก็ยังเป็นการส่งต่อจากฝั่งเรา</div>
+  <div class="row"><button type="button" class="btn primary lg" data-act="referToForm">ไปเขียนแบบ พ.87</button></div>`:''}
+  </article>`;
 }
 function referForm(){
   const P='refer.f.';
-  return `<form class="paper" onsubmit="return false" autocomplete="off">
-    <h2 class="paper-title">แบบสำหรับส่งผู้ป่วยไปรับการตรวจหรือรักษาต่อ</h2>
+  return `<article class="sheet"><span class="stamp">แบบฝึกหัด</span>
+  <form class="frame" onsubmit="return false" autocomplete="off">
+    <h2 class="form-title">แบบสำหรับส่งผู้ป่วยไปรับการตรวจหรือรักษาต่อ</h2>
     <div class="frow">${inp(P+'no','เลขที่','9rem')}${inp(P+'d','วันที่','6rem')}${inp(P+'mo','เดือน','8rem')}${inp(P+'y','พ.ศ.','6rem')}</div>
     <div class="frow">${inp(P+'from','จาก','18rem')}${inp(P+'tel','โทรศัพท์','10rem','inputmode="tel"')}</div>
     <div class="frow">${inp(P+'to','ถึง','18rem')}</div>
@@ -756,7 +760,7 @@ function referForm(){
     <div class="frow">${inp(P+'sex','เพศ','6rem')}${inp(P+'age','อายุ (ปี)','6rem','inputmode="numeric"')}${inp(P+'house','อยู่บ้านเลขที่','7rem')}${inp(P+'moo','หมู่ที่','5rem')}${inp(P+'road','ถนน','9rem')}</div>
     <div class="frow">${inp(P+'tambon','ตำบล','10rem')}${inp(P+'amphoe','อำเภอ','10rem')}${inp(P+'prov','จังหวัด','10rem')}</div>
     <div class="frow">${inp(P+'near','สถานที่ใกล้เคียงคือ','20rem')}</div>
-    <div class="sec"><span class="sec-title">มาเพื่อโปรด</span><div class="opts">${chk(P+'p_admit','รับไว้รักษาต่อ')}${chk(P+'p_lab','ตรวจชันสูตร')}${chk(P+'p_obs','คุมไว้สังเกต')}${chk(P+'p_res','ขอทราบผล')}</div></div>
+    <div class="frow"><span>มาเพื่อโปรด :-</span><div class="opts">${chk(P+'p_admit','รับไว้รักษาต่อ')}${chk(P+'p_lab','ตรวจชันสูตร')}${chk(P+'p_obs','คุมไว้สังเกต')}${chk(P+'p_res','ขอทราบผล')}</div></div>
     ${area('refer','s1',LABELS.s1,2)}
     ${area('refer','s2',LABELS.s2,6,'แบบ พ.87 ไม่มีช่องตรวจร่างกายแยก ให้เขียนผลตรวจร่างกายต่อในหัวข้อนี้')}
     ${area('refer','s3',LABELS.s3,4)}
@@ -764,26 +768,29 @@ function referForm(){
     ${area('refer','s5',LABELS.s5,3)}
     ${area('refer','s6',LABELS.s6,1)}
     ${area('refer','s7',LABELS.s7,2)}
-    <div class="sec"><span class="sec-title" style="font-weight:400">(ถ้าเป็นโรคติดต่อ)</span><div class="opts">${rad(P+'notify','done','แจ้งความแล้ว')}${rad(P+'notify','not','ยังไม่แจ้งความ')}${rad(P+'notify','na','ไม่ใช่โรคติดต่อ')}</div></div>
+    <div class="frow"><span>(ถ้าเป็นโรคติดต่อ)</span><div class="opts">${rad(P+'notify','done','แจ้งความแล้ว')}${rad(P+'notify','not','ยังไม่แจ้งความ')}${rad(P+'notify','na','ไม่ใช่โรคติดต่อ')}</div></div>
     <div class="sigblock"><div class="sigcol"><b>(ลงชื่อ)</b>${inkpad('refer.ink.sig','sig',120)}</div>
       <div class="sigcol">${inp(P+'signName','(ชื่อตัวบรรจง)','14rem')}${inp(P+'signPos','ตำแหน่ง','14rem')}</div></div>
-    <div class="paper-foot"><span>พ.87</span><span>แบบฝึกหัด</span></div>
-  </form>
+    <div class="form-foot"><span>พ.87</span><span>หน้า ๑</span></div>
+  </form></article>
   <div class="submit-row"><button type="button" class="btn primary lg" data-act="referGrade">ส่งตรวจ</button><span class="muted">ส่งแล้วยังกลับมาแก้ไขได้ ข้อมูลบันทึกอัตโนมัติ</span></div>`;
 }
 function referResult(){
   const c=ctxRefer(), t=tally(REFER_ITEMS,c), r=S.refer;
   const time=r.t0?fmtTime((r.t1||Date.now())-r.t0):'–';
-  return `<div class="scorehead">
-    <div class="bignum">${t.s}<small> / ${t.t}</small></div>
-    <div class="scoreinfo">
-      ${t.p?`<span class="verdict wait">รอตรวจด้วยตา ${t.p} ข้อ</span>`:`<span class="verdict pass">ตรวจครบทุกข้อ</span>`}
-      <p class="muted">เขียนแต่ละหัวข้อครบตามเฉลยจึงได้ 1 คะแนน · ใช้เวลา ${time}${r.first&&r.first!=='p87'?' · ตอนแรกเลือกแบบฟอร์มผิด':''}</p>
+  return `<article class="sheet">
+    <h2 class="doc-title">ใบให้คะแนน · ใบ Refer</h2>
+    <div class="rhead">
+      <div class="redscore" aria-label="ได้ ${t.s} จาก ${t.t} คะแนน">${t.s}<small>/${t.t}</small></div>
+      <div class="scoreinfo">
+        ${t.p?`<span class="vstamp">รอตรวจ ${t.p} ข้อ</span>`:`<span class="vstamp okay">ตรวจครบทุกข้อ</span>`}
+        <p class="muted">หมายเหตุ เขียนแต่ละหัวข้อครบตามเฉลยจึงได้ 1 คะแนน · ใช้เวลา ${time}${r.first&&r.first!=='p87'?' · ตอนแรกเลือกแบบฟอร์มผิด':''}</p>
+      </div>
+      <div class="row"><button type="button" class="btn" data-act="referEdit">กลับไปแก้ไข</button><button type="button" class="btn primary" data-act="referSave">บันทึกผล</button></div>
     </div>
-    <div class="row"><button type="button" class="btn" data-act="referEdit">กลับไปแก้ไข</button><button type="button" class="btn primary" data-act="referSave">บันทึกผล</button></div>
-  </div>
-  ${rubricHTML(REFER_ITEMS,c)}
-  <div class="row"><button type="button" class="btn ghost" data-act="referReset" data-confirm="แตะอีกครั้งเพื่อล้างคำตอบ">เริ่มเขียนใหม่ทั้งหมด</button></div>`;
+    ${rubricHTML(REFER_ITEMS,c)}
+    <div class="row"><button type="button" class="btn ghost" data-act="referReset" data-confirm="แตะอีกครั้งเพื่อล้างคำตอบ">เริ่มเขียนใหม่ทั้งหมด</button></div>
+  </article>`;
 }
 
 /* ===================== views: consent ===================== */
@@ -796,72 +803,81 @@ function consentView(){
   const order=['brief','talk','form','result'];const cur=order.indexOf(c.stage);
   const R=c.rounds[c.round];
   const body=c.stage==='brief'?consentBrief():c.stage==='talk'?consentTalk():c.stage==='form'?consentForm():consentResult();
-  return `<div class="cwrap ${c.stage==='talk'?'talking':''}">
+  return `<div class="deskwrap">
     <div class="strip">
-      <div class="who"><span class="eyebrow">รอบที่ ${c.round+1} จาก 2</span><span><span class="role-tag">แพทย์</span><b>${esc(nm(docIdx()))}</b></span><span><span class="role-tag">ผู้ป่วย</span><b>${esc(nm(ptIdx()))}</b></span></div>
-      ${stepsHTML(['เตรียมบท','สนทนาและติ๊ก','เขียนใบยินยอม','ผลรอบนี้'],cur,'cStep',i=>i<=cur||(i<=2&&R.t0)||(i===3&&R.graded))}
+      <div class="who"><b>รอบที่ ${TH(c.round+1)} จาก ๒</b><span><span class="role-tag">แพทย์</span><b>${esc(nm(docIdx()))}</b></span><span><span class="role-tag">ผู้ป่วย</span><b>${esc(nm(ptIdx()))}</b></span></div>
+      ${stepsHTML(['เตรียมบท','สนทนาและให้คะแนน','เขียนใบยินยอม','ผลรอบนี้'],cur,'cStep',i=>i<=cur||(i<=2&&R.t0)||(i===3&&R.graded))}
     </div>
     ${body}
   </div>`;
 }
 function consentSetup(){
-  const c=S.consent;
-  return `<div class="cwrap narrow">
-    <div class="intro"><p class="eyebrow">แบบฝึกที่ 2 · จับคู่</p><h1>ขอความยินยอมก่อนผ่าตัด</h1></div>
+  return `<div class="deskwrap"><article class="sheet">
+    <span class="stamp">แบบฝึกที่ ๒</span>
+    <h1 class="doc-title">ใบลงทะเบียนคู่ฝึก<br>การขอความยินยอมก่อนทำหัตถการ</h1>
     <p class="task">${esc(CONSENT_TASK)}</p>
-    <div class="pairnames">
-      <div class="field"><label for="${fid('consent.names.0')}">คนที่ 1 (เป็นแพทย์ในรอบแรก)</label><input id="${fid('consent.names.0')}" data-bind="consent.names.0" value="${esc(c.names[0])}" placeholder="ชื่อเล่นหรือรหัสนักศึกษา" autocomplete="off"></div>
-      <div class="field"><label for="${fid('consent.names.1')}">คนที่ 2 (เป็นผู้ป่วยในรอบแรก)</label><input id="${fid('consent.names.1')}" data-bind="consent.names.1" value="${esc(c.names[1])}" placeholder="ชื่อเล่นหรือรหัสนักศึกษา" autocomplete="off"></div>
-    </div>
+    <div class="frow">${inp('consent.names.0','ผู้ฝึกคนที่ ๑ (เป็นแพทย์ในรอบแรก)','16rem','placeholder="ชื่อเล่นหรือรหัสนักศึกษา"')}</div>
+    <div class="frow">${inp('consent.names.1','ผู้ฝึกคนที่ ๒ (เป็นผู้ป่วยในรอบแรก)','16rem','placeholder="ชื่อเล่นหรือรหัสนักศึกษา"')}</div>
+    <h2 class="doc-h">ขั้นตอนการฝึก</h2>
     <ol class="flow">
-      <li><span class="fn">1</span><span><b>เตรียมบท</b> ผู้เป็นแพทย์อ่านโจทย์ ผู้เป็นผู้ป่วยอ่านบทบาทและ checklist</span></li>
-      <li><span class="fn">2</span><span><b>สนทนา</b> แพทย์แนะนำตัวและขออนุญาตทำหัตถการ ผู้ป่วยถือ iPad ตอบคำถาม และติ๊ก checklist ตามที่ได้ยินจริง</span></li>
-      <li><span class="fn">3</span><span><b>เขียนใบยินยอม</b> ส่ง iPad คืนแพทย์ เลือกใบยินยอมให้ถูกใบ แล้วกรอก ให้ผู้ป่วยลงชื่อ</span></li>
-      <li><span class="fn">4</span><span><b>ดูผล</b> คะแนน checklist ข้อละ 1 คะแนน ได้ ${PASS} คะแนนขึ้นไปผ่าน แล้วสลับบทเริ่มรอบที่ 2</span></li>
+      <li><span class="fn">๑.</span><span><b>เตรียมบท</b> ผู้เป็นแพทย์อ่านโจทย์ ผู้เป็นผู้ป่วยอ่านบทบาทและ checklist</span></li>
+      <li><span class="fn">๒.</span><span><b>สนทนาและให้คะแนน</b> แพทย์แนะนำตัวและขออนุญาตทำหัตถการ ผู้ป่วยถือ iPad ตอบคำถาม และติ๊ก checklist ตามที่ได้ยินจริง</span></li>
+      <li><span class="fn">๓.</span><span><b>เขียนใบยินยอม</b> ส่ง iPad คืนแพทย์ เลือกใบยินยอมให้ถูกใบแล้วกรอก ให้ผู้ป่วยลงชื่อ</span></li>
+      <li><span class="fn">๔.</span><span><b>ดูผล</b> checklist ข้อละ 1 คะแนน ได้ ${PASS} คะแนนขึ้นไปผ่าน แล้วสลับบทเริ่มรอบที่ ๒</span></li>
     </ol>
-    <div class="row"><button type="button" class="btn primary lg" data-act="cStart">เริ่มรอบที่ 1</button></div>
-  </div>`;
+    <div class="row"><button type="button" class="btn primary lg" data-act="cStart">เริ่มรอบที่ ๑</button></div>
+  </article></div>`;
 }
 function consentBrief(){
   const d=esc(nm(docIdx())),p=esc(nm(ptIdx()));
   return `<div class="roles">
-    <section class="role"><p class="eyebrow">บทแพทย์ · ${d}</p><h2>โจทย์</h2><p class="task">${esc(CONSENT_TASK)}</p>
-      <ul><li>แนะนำตัว อธิบาย และขออนุญาตทำหัตถการด้วยภาษาที่ผู้ป่วยเข้าใจ</li><li>ใช้กระดาษหรือกระดานวาดรูปในแอปประกอบคำอธิบายได้</li><li>หลังคุยเสร็จ เขียนใบยินยอมให้ถูกใบ</li></ul></section>
-    <section class="role"><p class="eyebrow">บทผู้ป่วย · ${p}</p><h2>บทบาท</h2>
+    <article class="sheet"><div class="role-head"><span>บทแพทย์</span><span>${d}</span></div>
+      <p class="task">${esc(CONSENT_TASK)}</p>
+      <ul><li>แนะนำตัว อธิบาย และขออนุญาตทำหัตถการด้วยภาษาที่ผู้ป่วยเข้าใจ</li><li>ใช้กระดาษหรือกระดานวาดรูปในแอปประกอบคำอธิบายได้</li><li>หลังคุยเสร็จ เขียนใบยินยอมให้ถูกใบ</li></ul></article>
+    <article class="sheet"><div class="role-head"><span>บทผู้ป่วย</span><span>${p}</span></div>
       <p>คุณเป็นผู้ชายอายุ 20 ปี ปวดท้องน้อยข้างขวามา 1 วัน แพทย์วินิจฉัยว่าไส้ติ่งอักเสบ และกำลังจะมาขออนุญาตผ่าตัด</p>
-      <ul><li>ระหว่างสนทนา ถือ iPad ไว้ และติ๊กแต่ละข้อเมื่อแพทย์อธิบายแล้วจริง</li><li>ตอบคำถามของแพทย์ตามบทบาท ข้อมูลที่โจทย์ไม่ได้กำหนด เช่น ชื่อ ที่อยู่ ตอบได้ตามสมควร</li><li>ถ้าแพทย์เปิดโอกาสให้ถาม ถามสิ่งที่ผู้ป่วยจริงอยากรู้ได้</li></ul></section>
+      <ul><li>ระหว่างสนทนา ถือ iPad ไว้ และติ๊กแต่ละข้อเมื่อแพทย์อธิบายแล้วจริง</li><li>ตอบคำถามของแพทย์ตามบทบาท ข้อมูลที่โจทย์ไม่ได้กำหนด เช่น ชื่อ ที่อยู่ ตอบได้ตามสมควร</li><li>ถ้าแพทย์เปิดโอกาสให้ถาม ถามสิ่งที่ผู้ป่วยจริงอยากรู้ได้</li></ul></article>
   </div>
   <div class="handoff"><p>${d} อ่านโจทย์แล้ว ส่ง iPad ให้ ${p} ถือไว้ แล้วเริ่มสนทนา</p><button type="button" class="btn primary lg" data-act="cTalk">เริ่มสนทนา และเริ่มจับเวลา</button></div>`;
 }
-function ckBtn(x,R){return `<button type="button" class="ck" data-act="ck" data-arg="${x.n}" aria-pressed="${!!R.ck[x.n]}"><span class="box" aria-hidden="true"></span><span class="no">${x.n}</span><span class="tx">${esc(x.t)}${x.d?`<small>${esc(x.d)}</small>`:''}</span></button>`}
+function ckBtn(x,R,indent){return `<button type="button" class="ck ${indent?'indent':''}" data-act="ck" data-arg="${x.n}" aria-pressed="${!!R.ck[x.n]}"><span class="no">${x.n}</span><span class="tx">${esc(x.t)}${x.d?`<small>${esc(x.d)}</small>`:''}</span><span class="got" aria-hidden="true"></span></button>`}
 function checklistHTML(R){
-  return `<ol class="cl">${CK.map(x=>x.items
-    ?`<li><div class="grp-h"><span class="no">${x.g}</span><span>${esc(x.t)}</span></div><ol>${x.items.map(y=>y.sub?`<li class="sub-h">${esc(y.sub)}</li>`:`<li>${ckBtn(y,R)}</li>`).join('')}</ol></li>`
-    :`<li>${ckBtn(x,R)}</li>`).join('')}</ol>`;
+  const rows=[];
+  CK.forEach(x=>{
+    if(!x.items){rows.push(`<li>${ckBtn(x,R)}</li>`);return}
+    rows.push(`<li><div class="ck-grp"><span class="no">${x.g}</span><span class="tx">${esc(x.t)}</span><span></span></div></li>`);
+    x.items.forEach(y=>rows.push(y.sub?`<li><div class="ck-grp sub"><span class="no"></span><span class="tx">${esc(y.sub)}</span><span></span></div></li>`:`<li>${ckBtn(y,R,true)}</li>`));
+  });
+  return `<div class="cktable"><div class="ck-head"><span>ข้อ</span><span>รายการ</span><span>คะแนน</span></div><ol class="cl">${rows.join('')}</ol></div>`;
 }
 function ckScore(R){return LEAVES.filter(x=>R.ck[x.n]).length}
-function scorebarHTML(R){const s=ckScore(R);return `<div class="scorebar" id="scorebar"><div class="sb-num" id="sbNum">${s}<small> / ${CK_TOTAL}</small></div><div class="segs" aria-hidden="true">${LEAVES.map((_,i)=>`<span class="seg ${i<s?'on':''}"></span>`).join('')}<span class="passline"></span></div><span class="sb-pass" id="sbPass">${s>=PASS?'ถึงเกณฑ์ผ่านแล้ว':'ผ่านที่ '+PASS+' คะแนน'}</span></div>`}
+function passText(s){return s>=PASS?'ถึงเกณฑ์ผ่านแล้ว':'ยังขาดอีก '+(PASS-s)+' คะแนนจึงผ่าน'}
 function consentTalk(){
   const R=S.consent.rounds[S.consent.round], p=esc(nm(ptIdx())), d=esc(nm(docIdx()));
-  const sc='consent.rounds.'+S.consent.round;
+  const sc='consent.rounds.'+S.consent.round, s=ckScore(R);
   return `<div class="talk">
-    <section class="checklist"><header><p class="eyebrow">สำหรับ ${p} (ผู้ป่วย)</p><h2>Checklist การขออนุญาตทำหัตถการ</h2><p class="muted">ข้อละ 1 คะแนน · ติ๊กเมื่อแพทย์อธิบายแล้ว แตะซ้ำเพื่อยกเลิก</p></header>
-      ${checklistHTML(R)}${scorebarHTML(R)}</section>
+    <article class="sheet ck-sheet">
+      <h2 class="doc-h center">Check list การขออนุญาตทำหัตถการ ข้อละ 1 คะแนน</h2>
+      <p class="muted center" style="margin-top:-10px">ผู้ให้คะแนน ${p} (บทผู้ป่วย) · แตะแถวเมื่อแพทย์อธิบายแล้ว แตะซ้ำเพื่อยกเลิก</p>
+      ${checklistHTML(R)}
+      <div class="ck-total" id="scorebar"><b>รวมคะแนน</b><span class="hand" id="sbNum">${s}</span><b>คะแนน</b><span class="muted">หมายเหตุ ได้คะแนน ${PASS} คะแนนขึ้นไปผ่าน</span><span class="muted" id="sbPass" style="margin-left:auto">${passText(s)}</span></div>
+    </article>
     <aside class="side">
-      <section class="panel"><h3>กระดานวาดรูปประกอบ</h3><p class="muted">ให้ ${d} วาดอธิบายตำแหน่งแผลหรือไส้ติ่ง (checklist ข้อ 7)</p>${inkpad(sc+'.draw','board',260)}</section>
-      <section class="panel"><h3>ข้อเสนอแนะถึงแพทย์</h3><div class="field"><label for="${fid(sc+'.fb')}">สิ่งที่ทำได้ดี หรือควรปรับ</label><textarea id="${fid(sc+'.fb')}" data-bind="${sc}.fb">${esc(R.fb)}</textarea></div></section>
+      <article class="sheet mini"><h3>กระดานวาดรูปประกอบ</h3><p class="muted">ให้ ${d} วาดอธิบายตำแหน่งแผลหรือไส้ติ่ง (checklist ข้อ 7)</p>${inkpad(sc+'.draw','board',260)}</article>
+      <article class="sheet mini"><h3>ข้อเสนอแนะถึงแพทย์</h3><div class="field"><textarea id="${fid(sc+'.fb')}" data-bind="${sc}.fb" aria-label="ข้อเสนอแนะถึงแพทย์" placeholder="สิ่งที่ทำได้ดี หรือควรปรับ">${esc(R.fb)}</textarea></div></article>
       <div class="handoff"><p>คุยจบแล้ว ส่ง iPad ให้ ${d} เขียนใบยินยอม</p><button type="button" class="btn primary" data-act="cToForm">ไปเขียนใบยินยอม</button></div>
     </aside>
   </div>`;
 }
 function consentForm(){
   const i=S.consent.round, R=S.consent.rounds[i], sc='consent.rounds.'+i, P=sc+'.f.', ch=R.choice;
-  const tile=(id,title,sub,right)=>`<button type="button" class="choice ${right?'right':'wrong'}" data-act="cChoose" data-arg="${id}" aria-pressed="${ch===id}"><span class="mini-title">${title}</span><span class="mini-sub">${sub}</span></button>`;
-  let html=`<h2 class="h-sec">เลือกใบยินยอมให้ถูกใบ</h2>
-  <div class="choices">${tile('gen',FORM_GEN,'',false)}${tile('proc',FORM_PROC,'แบบแสดงความยินยอม 2',true)}</div>`;
-  if(ch) html+=`<div class="note ${ch==='proc'?'ok':'bad'}"><b>${ch==='proc'?'ถูกต้อง':'ยังไม่ใช่ใบนี้'}</b><p>การผ่าตัดไส้ติ่งเป็นหัตถการเฉพาะ ต้องใช้ใบที่มีช่องให้บันทึกการวินิจฉัย วิธีรักษา ผลดี ผลเสียหากไม่รักษา ความเสี่ยง และทางเลือกอื่น คือแบบแสดงความยินยอม 2 ด้านล่าง</p></div>`;
-  if(!ch) return `<div class="formcol">${html}</div>`;
-  html+=`<form class="paper" onsubmit="return false" autocomplete="off">
+  const tile=(id,title,sub,right)=>`<button type="button" class="choice ${right?'right':'wrong'}" data-act="cChoose" data-arg="${id}" aria-pressed="${ch===id}"><span class="mini-title">${title}</span>${sub?`<span class="code">${sub}</span>`:''}</button>`;
+  let html=`<article class="sheet"><h2 class="doc-h">เลือกใบยินยอมให้ถูกใบ</h2>
+  <div class="choices">${tile('gen',FORM_GEN,'',false)}${tile('proc',FORM_PROC,'แบบแสดงความยินยอม 2',true)}</div>
+  ${ch?`<div class="note ${ch==='proc'?'ok':'bad'}"><b>${ch==='proc'?'ถูกต้อง':'ยังไม่ใช่ใบนี้'}</b>การผ่าตัดไส้ติ่งเป็นหัตถการเฉพาะ ต้องใช้ใบที่มีช่องให้บันทึกการวินิจฉัย วิธีรักษา ผลดี ผลเสียหากไม่รักษา ความเสี่ยง และทางเลือกอื่น คือแบบแสดงความยินยอม 2 ด้านล่าง</div>`:''}</article>`;
+  if(!ch) return `<div style="max-width:900px;width:100%;margin:0 auto">${html}</div>`;
+  html+=`<article class="sheet"><span class="stamp">แบบฝึกหัด</span>
+  <form class="frame" onsubmit="return false" autocomplete="off" style="margin-top:22px">
     <div class="c-head">
       <div class="c-org"><b>โรงพยาบาล (แบบฝึกหัด)</b><span class="muted">จำลองจากแบบฟอร์ม ฉบับใหม่ 2566</span><span class="formno">แบบแสดงความยินยอม 2</span></div>
       <div>${inp(P+'hn','HN','8rem')}${inp(P+'an','AN','8rem')}${inp(P+'name','ชื่อ/นามสกุล','12rem')}
@@ -896,44 +912,55 @@ function consentForm(){
     <details><summary>กรณีผู้ป่วยไม่อาจให้ความยินยอมได้ด้วยตนเอง</summary>
       <div class="opts" style="padding-top:8px">${chk(P+'r_minor','อายุไม่เกินยี่สิบปีบริบูรณ์')}${chk(P+'r_dis','ผู้บกพร่องทางกาย–จิต')}${chk(P+'r_other','อื่น ๆ')}</div>
       ${inp(P+'r_note','ระบุ','14rem')}</details>
-    <div class="paper-foot"><span>พ. 155</span><span>แบบฝึกหัด</span></div>
-  </form>
+    <div class="form-foot"><span>พ. 155</span><span>หน้า ๑</span></div>
+  </form></article>
   <div class="submit-row"><button type="button" class="btn primary lg" data-act="cGrade">ส่งตรวจรอบนี้</button><span class="muted">ส่งแล้วยังกลับมาแก้ไขได้</span></div>`;
-  return `<div class="formcol">${html}</div>`;
+  return `<div style="max-width:900px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:22px">${html}</div>`;
 }
 function consentResult(){
   const i=S.consent.round, R=S.consent.rounds[i], c=ctxRound(i), s=ckScore(R), ft=tally(CONSENT_ITEMS,c);
   const missed=LEAVES.filter(x=>!R.ck[x.n]);
   const time=R.t0?fmtTime((R.t1||Date.now())-R.t0):'–';
-  return `<div class="scorehead">
-    <div class="bignum">${s}<small> / ${CK_TOTAL}</small></div>
-    <div class="scoreinfo"><span class="verdict ${s>=PASS?'pass':'fail'}">${s>=PASS?'ผ่าน':'ยังไม่ผ่าน'} (เกณฑ์ ${PASS} คะแนน)</span><p class="muted">แพทย์ ${esc(nm(docIdx()))} · เวลาสนทนา ${time} · ใบยินยอมครบ ${ft.s}/${ft.t} ข้อ${ft.p?` (รอตรวจ ${ft.p})`:''}</p></div>
-    <div class="row"><button type="button" class="btn primary" data-act="cNext">${i===0?'สลับบท เริ่มรอบที่ 2':'ดูสรุปทั้งคู่'}</button></div>
-  </div>
-  <div class="talk">
-    <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-      <h2 class="h-sec">ตรวจใบยินยอม</h2><p class="muted">ไม่รวมในคะแนน checklist ใช้ทบทวนว่ากรอกครบและถูกใบหรือไม่</p>
+  return `<div class="talk">
+    <article class="sheet">
+      <h2 class="doc-title">ใบให้คะแนน · รอบที่ ${TH(i+1)}</h2>
+      <div class="rhead">
+        <div class="redscore" aria-label="ได้ ${s} จาก ${CK_TOTAL} คะแนน">${s}<small>/${CK_TOTAL}</small></div>
+        <div class="scoreinfo"><span class="vstamp ${s>=PASS?'':''}">${s>=PASS?'ผ่าน':'ไม่ผ่าน'}</span><p class="muted">แพทย์ ${esc(nm(docIdx()))} · เกณฑ์ผ่าน ${PASS} คะแนน · เวลาสนทนา ${time}</p></div>
+        <div class="row"><button type="button" class="btn primary" data-act="cNext">${i===0?'สลับบท เริ่มรอบที่ ๒':'ดูสรุปทั้งคู่'}</button></div>
+      </div>
+      <h3 class="doc-h">ตรวจใบยินยอม <span class="muted" style="font-weight:400">ครบ ${ft.s}/${ft.t} ข้อ${ft.p?` · รอตรวจ ${ft.p}`:''} · ไม่รวมในคะแนน checklist</span></h3>
       ${rubricHTML(CONSENT_ITEMS,c)}
-    </div>
+    </article>
     <aside class="side">
-      <section class="panel"><h3>ข้อที่ยังไม่ได้อธิบาย (${missed.length})</h3>${missed.length?`<ul class="misslist">${missed.map(x=>`<li><span class="no">${x.n}</span><span>${esc(x.t)}</span></li>`).join('')}</ul>`:'<p>อธิบายครบทุกข้อ</p>'}<button type="button" class="btn sm" data-act="cStep" data-arg="1">กลับไปแก้ checklist</button></section>
-      ${filled(R.fb)?`<section class="panel"><h3>ข้อเสนอแนะจากผู้ป่วย</h3><p style="white-space:pre-wrap">${esc(R.fb)}</p></section>`:''}
-      ${inkHas(R.draw)?`<section class="panel"><h3>รูปที่วาดประกอบ</h3><canvas class="thumb" data-thumb="consent.rounds.${i}.draw"></canvas></section>`:''}
+      <article class="sheet mini"><h3>ข้อที่ยังไม่ได้อธิบาย (${missed.length})</h3>${missed.length?`<ul class="misslist">${missed.map(x=>`<li><span class="no">${x.n}</span><span>${esc(x.t)}</span></li>`).join('')}</ul>`:'<p>อธิบายครบทุกข้อ</p>'}<div><button type="button" class="btn sm" data-act="cStep" data-arg="1">กลับไปแก้ checklist</button></div></article>
+      ${filled(R.fb)?`<article class="sheet mini"><h3>ข้อเสนอแนะจากผู้ป่วย</h3><p style="white-space:pre-wrap;color:var(--pen)">${esc(R.fb)}</p></article>`:''}
+      ${inkHas(R.draw)?`<article class="sheet mini"><h3>รูปที่วาดประกอบ</h3><canvas class="thumb" data-thumb="consent.rounds.${i}.draw"></canvas></article>`:''}
     </aside>
   </div>`;
 }
 function consentSummary(){
   const c=S.consent;
-  const card=(i)=>{const R=c.rounds[i],s=ckScore(R),ft=tally(CONSENT_ITEMS,ctxRound(i));
-    return `<section class="sumcard"><p class="eyebrow">รอบที่ ${i+1} · บทแพทย์</p><h2>${esc(nm(i))}</h2>
-      <span class="verdict ${s>=PASS?'pass':'fail'}">${s>=PASS?'ผ่าน':'ยังไม่ผ่าน'}</span>
-      <dl><dt>Checklist</dt><dd>${s} / ${CK_TOTAL}</dd><dt>ใบยินยอมครบ</dt><dd>${ft.s} / ${ft.t}</dd><dt>เลือกใบยินยอม (ครั้งแรก)</dt><dd>${(R.first||R.choice)==='proc'?'ถูกใบ':'ผิดใบ'}</dd><dt>เวลาสนทนา</dt><dd>${R.t0?fmtTime((R.t1||Date.now())-R.t0):'–'}</dd></dl>
-      <button type="button" class="btn sm" data-act="cOpenRound" data-arg="${i}">ดูรายละเอียดรอบนี้</button></section>`};
-  return `<div class="cwrap narrow">
-    <div class="intro"><p class="eyebrow">สรุปทั้งคู่</p><h1>${esc(nm(0))} และ ${esc(nm(1))}</h1><p class="muted">บันทึกผลไว้ในประวัติบนเครื่องนี้แล้ว</p></div>
-    <div class="sumgrid">${card(0)}${card(1)}</div>
+  const v=i=>{const R=c.rounds[i],s=ckScore(R),ft=tally(CONSENT_ITEMS,ctxRound(i));return{s,ft,R}};
+  const a=v(0),b=v(1);
+  const tm=R=>R.t0?fmtTime((R.t1||Date.now())-R.t0):'–';
+  return `<div class="deskwrap"><article class="sheet">
+    <span class="stamp">สรุปผล</span>
+    <h1 class="doc-title">สรุปผลการฝึกขอความยินยอม</h1>
+    <p class="center">${esc(nm(0))} และ ${esc(nm(1))}</p>
+    <div class="tablewrap"><table class="doc">
+      <thead><tr><th>รายการ</th><th>รอบที่ ๑ · แพทย์ ${esc(nm(0))}</th><th>รอบที่ ๒ · แพทย์ ${esc(nm(1))}</th></tr></thead>
+      <tbody>
+        <tr><td>คะแนน checklist</td><td class="c"><span class="hand">${a.s}/${CK_TOTAL}</span></td><td class="c"><span class="hand">${b.s}/${CK_TOTAL}</span></td></tr>
+        <tr><td>ผลการประเมิน (ผ่านที่ ${PASS})</td><td class="c">${a.s>=PASS?'ผ่าน':'ไม่ผ่าน'}</td><td class="c">${b.s>=PASS?'ผ่าน':'ไม่ผ่าน'}</td></tr>
+        <tr><td>ความครบของใบยินยอม</td><td class="c">${a.ft.s}/${a.ft.t}</td><td class="c">${b.ft.s}/${b.ft.t}</td></tr>
+        <tr><td>เลือกใบยินยอม (ครั้งแรก)</td><td class="c">${(a.R.first||a.R.choice)==='proc'?'ถูกใบ':'ผิดใบ'}</td><td class="c">${(b.R.first||b.R.choice)==='proc'?'ถูกใบ':'ผิดใบ'}</td></tr>
+        <tr><td>เวลาสนทนา</td><td class="c">${tm(a.R)}</td><td class="c">${tm(b.R)}</td></tr>
+        <tr><td></td><td class="c"><button type="button" class="btn sm" data-act="cOpenRound" data-arg="0">ดูรายละเอียด</button></td><td class="c"><button type="button" class="btn sm" data-act="cOpenRound" data-arg="1">ดูรายละเอียด</button></td></tr>
+      </tbody></table></div>
+    <p class="muted">บันทึกผลไว้ในทะเบียนผลการฝึกบนเครื่องนี้แล้ว</p>
     <div class="row"><button type="button" class="btn primary" data-act="cNew" data-confirm="แตะอีกครั้งเพื่อล้างข้อมูลคู่นี้">เริ่มคู่ใหม่</button><button type="button" class="btn" data-act="go" data-arg="home">กลับหน้าแรก</button></div>
-  </div>`;
+  </article></div>`;
 }
 
 /* ===================== render & events ===================== */
@@ -979,7 +1006,7 @@ const ACT={
   toggleCase(){S.ui.caseOpen=S.ui.caseOpen===false;render()},
   referStep(a){const st=['choose','write','result'][+a];if(st==='write'&&!S.refer.choice)return;if(st==='write'){if(!S.refer.t0)S.refer.t0=Date.now();S.refer.t1=null}if(st==='result')S.refer.t1=S.refer.t1||Date.now();S.refer.stage=st;render(false)},
   referChoose(a){if(!S.refer.first)S.refer.first=a;S.refer.choice=a;render()},
-  referToForm(){S.refer.stage='write';if(!S.refer.t0)S.refer.t0=Date.now();if(S.ui.caseOpen===undefined)S.ui.caseOpen=true;render(false)},
+  referToForm(){S.refer.stage='write';if(!S.refer.t0)S.refer.t0=Date.now();render(false)},
   referGrade(){S.refer.stage='result';S.refer.t1=Date.now();render(false)},
   referEdit(){S.refer.stage='write';S.refer.t1=null;render(false)},
   referReset(){S.refer=newRefer();render(false)},
@@ -993,7 +1020,7 @@ const ACT={
   inkClear(a){const p=pads.get(a);if(!p)return;p.d.s=[];redraw(p);commit(p)},
   inkGrow(a){const p=pads.get(a);if(!p)return;p.d.h+=140;sizePad(p);commit(p)},
   ck(a,btn){const R=S.consent.rounds[S.consent.round];R.ck[a]=!R.ck[a];btn.setAttribute('aria-pressed',!!R.ck[a]);
-    const s=ckScore(R);$('#sbNum').innerHTML=`${s}<small> / ${CK_TOTAL}</small>`;$$('#scorebar .seg').forEach((el,i)=>el.classList.toggle('on',i<s));$('#sbPass').textContent=s>=PASS?'ถึงเกณฑ์ผ่านแล้ว':'ผ่านที่ '+PASS+' คะแนน';saveSoon()},
+    const s=ckScore(R);$('#sbNum').textContent=s;$('#sbPass').textContent=passText(s);saveSoon()},
   cStart(){S.consent.stage='brief';S.consent.round=0;render(false)},
   cStep(a){const st=['brief','talk','form','result'][+a];const R=S.consent.rounds[S.consent.round];if(st==='talk'&&!R.t0)R.t0=Date.now();S.consent.stage=st;render(false)},
   cTalk(){const R=S.consent.rounds[S.consent.round];if(!R.t0)R.t0=Date.now();R.t1=null;S.consent.stage='talk';render(false)},
